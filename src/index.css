@@ -1,11 +1,16 @@
 /* src/index.css */
-/* ¡Este es el CSS con el NUEVO fondo JPG! */
+/* ¡Este es el CSS con el NUEVO fondo JPG y Smooth Scroll! */
 
 /* --- GOOGLE FONTS IMPORTS --- */
 @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
 
 /* --- RESET BÁSICO --- */
+/* APLICA SMOOTH SCROLL AQUI */
+html {
+  scroll-behavior: smooth; /* <-- ¡ESTO HACE LA MAGIA DEL SCROLL SUAVE! */
+}
+
 body, h1, h2, h3, h4, h5, h6, p, a, button {
   margin: 0;
   padding: 0;
@@ -25,16 +30,15 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   
-  /* --- ¡AQUÍ ESTÁ EL NUEVO FONDO! --- */
-  /* Usamos tu imagen de la sala común de Slytherin */
+  /* --- FONDO DE SALA COMÚN SLYTHERIN --- */
   background-image: 
     linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), /* Superposición oscura para legibilidad */
     url('https://i.pinimg.com/originals/ae/c3/69/aec369fb56f2f8dfc846f672397eea6b.jpg'); /* Tu imagen */
   
-  background-color: #0c0f0f; /* Color de fondo si la imagen falla */
+  background-color: #0c0f0f; 
   background-size: cover;
   background-position: center;
-  background-attachment: fixed; /* ¡El fondo se queda quieto! */
+  background-attachment: fixed; /* El fondo se queda quieto */
 }
 
 a {

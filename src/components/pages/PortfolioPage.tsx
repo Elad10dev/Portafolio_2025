@@ -1,9 +1,12 @@
 // src/pages/PortfolioPage.tsx
-import { Header } from '../Header/Header';
+// ¡VERSIÓN ACTUALIZADA con Navegación Centrada y Scroll!
+
+import ProfilePic from '../../assets/YO2.jpg';
 import { Button } from '../Buttons/Button';
 import styles from './Portfolio.module.scss';
+import { Link } from 'react-router-dom'; // Importa Link para el logo
 
-// --- Tus Datos (¡RELLENA LO QUE FALTA AQUÍ!) ---
+// --- Tus Datos (Rellena lo que falta) ---
 const portfolioData = {
   name: "Eladio Ernesto de Jesus Castañeda Silva",
   title: "Desarrollador Web FullStack con manejo de Microservicios AWS",
@@ -52,7 +55,28 @@ const portfolioData = {
 export function PortfolioPage() {
   return (
     <div className={styles.portfolioPage}>
-      <Header />
+      
+      {/* --- NUEVA NAVEGACIÓN CENTRADA --- */}
+      <nav className={styles.portfolioNav}>
+        {/* Usamos scrollIntoView para la navegación de una sola página */}
+        <Link to="/" className={styles.navLogo}>
+          {portfolioData.name}
+        </Link>
+        <div className={styles.navButtons}>
+          <a href="#about">
+            <Button variant="light" className={styles.navButton}>Sobre Mí</Button>
+          </a>
+          <a href="#skills">
+            <Button variant="light" className={styles.navButton}>Habilidades</Button>
+          </a>
+          <a href="#projects">
+            <Button variant="light" className={styles.navButton}>Proyectos</Button>
+          </a>
+          <a href="#contact">
+            <Button variant="light" className={styles.navButton}>Contacto</Button>
+          </a>
+        </div>
+      </nav>
       
       <main className={styles.mainContent}>
         
@@ -61,7 +85,7 @@ export function PortfolioPage() {
           <h2 className={styles.sectionTitle}>Sobre Mí</h2>
           <div className={styles.aboutContent}>
             <img 
-              src="https://placehold.co/400x400/0f172a/a7f3d0?text=Eladio+Silva" 
+              src={ProfilePic} 
               alt="Eladio Silva" 
               className={styles.profilePic}
             />

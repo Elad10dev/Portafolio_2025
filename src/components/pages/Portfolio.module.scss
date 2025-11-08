@@ -1,49 +1,119 @@
 /* src/pages/PortfolioPage.module.scss */
-/* Estilos para la página de Portafolio (Sobre Mí, Habilidades, etc.) */
+/* ¡Estilos FINALMENTE CORREGIDOS para Navegación Horizontal! */
 
 .portfolioPage {
   position: relative;
-  z-index: 1; /* Asegura que esté sobre el fondo global */
+  z-index: 1; 
 }
 
-.mainContent {
-  /* Dejamos espacio para el Header fijo */
-  /* Ajustado para el header responsivo */
-  padding-top: 150px; 
-  @media (min-width: 768px) {
-    padding-top: 100px;
-  }
-}
-
-/* Estilo base para cada sección (Sobre Mí, Habilidades, etc.) */
-.section {
-  padding: 4rem 2rem;
-  max-width: 1100px;
-  margin: 0 auto;
-  border-bottom: 1px solid rgba(52, 211, 153, 0.2);
-
-  /* Animación sutil de entrada */
-  opacity: 0;
-  transform: translateY(20px);
-  animation: fadeInUp 0.8s ease-out forwards;
-}
-
-.sectionTitle {
-  font-size: 2.5rem; /* 40px */
-  text-align: center;
-  margin-bottom: 3rem; /* 48px */
-  text-shadow: 0 0 10px rgba(82, 211, 153, 0.7);
-}
-
-/* --- Estilos de "Sobre Mí" --- */
-.aboutContent {
+/* --- NAVEGACIÓN CENTRADA (Header) --- */
+.portfolioNav {
+  position: sticky; 
+  top: 0;
+  z-index: 10;
   display: flex;
   flex-direction: column; /* Apilado en móvil */
   align-items: center;
-  gap: 2rem;
+  justify-content: center;
+  padding: 1rem 1rem; /* Más compacto arriba */
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.7));
+  border-bottom: 1px solid rgba(52, 211, 153, 0.3);
 
   @media (min-width: 768px) {
-    flex-direction: row; /* Lado a lado en desktop */
+    /* --- CAMBIO CRÍTICO: En desktop, todo en una fila horizontal --- */
+    flex-direction: row; 
+    justify-content: space-between; /* Distribuye el logo y los botones */
+    padding: 0.75rem 2rem; /* Más delgado */
+  }
+}
+
+.navLogo {
+  font-family: 'Michroma', sans-serif;
+  font-size: 1.2rem; 
+  font-weight: 700;
+  color: #a7f3d0; 
+  text-decoration: none;
+  transition: color 0.3s ease;
+  margin-bottom: 1rem; /* Espacio para móvil */
+
+  @media (min-width: 768px) {
+    font-size: 1.5rem;
+    margin-bottom: 0; /* ¡Cero margen en desktop! */
+    margin-right: 2rem; /* Espacio a la derecha de los botones */
+    flex-shrink: 0; /* No se encoge */
+  }
+}
+
+.navButtons {
+  display: flex;
+  flex-wrap: wrap; 
+  justify-content: center;
+  gap: 0.75rem; 
+  /* Aseguramos que los botones no se salgan, usando el espacio restante */
+  width: 100%;
+  
+  @media (min-width: 768px) {
+    width: auto;
+    flex-grow: 1; /* Permite que el grupo de botones ocupe el espacio */
+    justify-content: flex-end; /* Alinea los botones a la derecha si hay espacio */
+  }
+}
+
+/* Hacemos que los botones de navegación sean pequeños y limpios */
+.navButton {
+  width: auto; /* Permite que el botón sea pequeño */
+  flex-grow: 0;
+  padding: 0.5rem 1rem;
+  font-size: 0.75rem; 
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+/* --- SECCIONES LISTADAS (El Contenido) --- */
+.mainContent {
+  padding-top: 0; 
+}
+
+/* Estilo base para cada sección (El panel contenedor) */
+.section {
+  padding: 4rem 2rem;
+  max-width: 1100px;
+  margin: 2rem auto; /* Aseguramos espacio entre los paneles */
+  
+  /* --- ESTILO DE PANEL LISTADO --- */
+  background-color: rgba(0, 0, 0, 0.5); 
+  backdrop-filter: blur(5px);
+  border-radius: 12px;
+  border: 1px solid rgba(52, 211, 153, 0.3); 
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+  
+  scroll-margin-top: 8rem; /* Deja espacio para la navegación pegajosa */
+
+  /* --- CAMBIO CRÍTICO: Eliminamos opacity: 0 en la base para que el contenido se vea --- */
+  /* Si necesitas animación, aplícala con un delay, no en el estado base */
+  opacity: 1; /* Hacemos el contenido visible por defecto */
+  transform: translateY(0);
+  animation: none; /* Quitamos la animación de entrada aquí para debug/estabilidad */
+  
+  animation: fadeInUp 0.8s ease-out forwards; /* Mantenemos la animación en caso de que funcione */
+}
+
+.sectionTitle {
+  font-size: 2.5rem; 
+  text-align: center;
+  margin-bottom: 3rem; 
+  text-shadow: 0 0 10px rgba(82, 211, 153, 0.7);
+}
+
+/* ... (el resto de los estilos se mantienen) ... */
+
+/* [Se mantienen los estilos restantes de AboutContent, SkillsGrid, ProjectsGrid, etc.] */
+.aboutContent {
+  display: flex;
+  flex-direction: column; 
+
+  @media (min-width: 768px) {
+    flex-direction: row; 
     align-items: flex-start;
     gap: 3rem;
   }
@@ -52,11 +122,11 @@
 .profilePic {
   width: 250px;
   height: 250px;
-  border-radius: 9999px; /* Círculo */
-  border: 4px solid #34d399; /* Borde verde */
+  border-radius: 9999px;
+  border: 4px solid #34d399;
   object-fit: cover;
   box-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
-  flex-shrink: 0; /* Evita que la imagen se encoja */
+  flex-shrink: 0;
 }
 
 .bioContainer {
@@ -70,20 +140,18 @@
 .bioSubtitle {
   font-family: 'Inter', sans-serif;
   font-size: 1.25rem;
-  color: #a0aec0; /* Gris */
+  color: #a0aec0;
   margin-bottom: 1.5rem;
 }
 .bioText {
   font-family: 'Inter', sans-serif;
   font-size: 1rem;
-  color: #e5e7eb; /* gray-200 */
+  color: #e5e7eb;
   line-height: 1.7;
 }
 
-/* --- Estilos de "Habilidades" --- */
 .skillsGrid {
   display: grid;
-  /* Columnas responsivas: 2 en móvil, 4 en tablet, 6 en desktop */
   grid-template-columns: repeat(2, 1fr);
   gap: 1.5rem;
 
@@ -96,7 +164,7 @@
 }
 
 .skillCard {
-  background: rgba(31, 41, 55, 0.8); /* gray-800 */
+  background: rgba(31, 41, 55, 0.8);
   padding: 1.5rem 1rem;
   border-radius: 8px;
   border: 1px solid rgba(52, 211, 153, 0.3);
@@ -118,17 +186,16 @@
   }
 }
 
-/* --- Estilos de "Proyectos" --- */
 .projectsGrid {
   display: grid;
-  grid-template-columns: 1fr; /* 1 columna en móvil */
+  grid-template-columns: 1fr;
   gap: 2.5rem;
 
   @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
+    grid-template-columns: repeat(2, 1fr);
   }
   @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr); /* 3 columnas en desktop */
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 
@@ -136,7 +203,7 @@
   background: rgba(31, 41, 55, 0.8);
   border-radius: 12px;
   border: 1px solid rgba(52, 211, 153, 0.3);
-  overflow: hidden; /* Para que la imagen se ajuste al borde redondeado */
+  overflow: hidden;
   display: flex;
   flex-direction: column;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
@@ -158,7 +225,7 @@
   padding: 1.5rem;
   display: flex;
   flex-direction: column;
-  flex-grow: 1; /* Para que el footer se alinee abajo */
+  flex-grow: 1;
 }
 
 .projectTitle {
@@ -171,17 +238,16 @@
   font-size: 0.875rem;
   color: #a0aec0;
   line-height: 1.6;
-  flex-grow: 1; /* Empuja los botones hacia abajo */
+  flex-grow: 1;
   margin-bottom: 1.5rem;
 }
 
 .projectLinks {
   display: flex;
   gap: 1rem;
-  margin-top: auto; /* Pega los botones al fondo */
+  margin-top: auto;
 }
 
-/* Hacemos que los botones del proyecto sean más pequeños */
 .projectButton {
   width: 50%;
   padding: 0.5rem 1rem;
@@ -189,7 +255,6 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* --- Estilos de "Contacto" --- */
 .contactSubtitle {
   font-family: 'Inter', sans-serif;
   font-size: 1.25rem;
