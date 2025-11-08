@@ -96,19 +96,6 @@ export function PortfolioPage() {
             </div>
           </div>
         </section>
-
-        {/* --- SECCIÓN HABILIDADES --- */}
-        <section id="skills" className={styles.section}>
-          <h2 className={styles.sectionTitle}>Arsenal de Habilidades</h2>
-          <div className={styles.skillsGrid}>
-            {portfolioData.skills.map((skill) => (
-              <div key={skill} className={styles.skillCard}>
-                {skill}
-              </div>
-            ))}
-          </div>
-        </section>
-
         {/* --- SECCIÓN PROYECTOS --- */}
         <section id="projects" className={styles.section}>
           <h2 className={styles.sectionTitle}>Proyectos Destacados</h2>
@@ -146,6 +133,20 @@ export function PortfolioPage() {
             ))}
           </div>
         </section>
+
+        {/* --- SECCIÓN HABILIDADES --- */}
+        <section id="skills" className={styles.section}>
+          <h2 className={styles.sectionTitle}>Arsenal de Habilidades</h2>
+          <div className={styles.skillsGrid}>
+            {portfolioData.skills.map((skill) => (
+              <div key={skill} className={styles.skillCard}>
+                {skill}
+              </div>
+            ))}
+          </div>
+        </section>
+
+        
 
         {/* --- SECCIÓN CONTACTO --- */}
         <section id="contact" className={styles.section}>
