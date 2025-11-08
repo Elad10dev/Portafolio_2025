@@ -1,0 +1,16 @@
+/* src/components/AnimatedBackground/AnimatedBackground.module.scss */
+
+.bgWrap {
+  position: fixed; /* Fijo para que se quede detrás */
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0; /* Detrás del contenido (que tendrá z-index > 0) */
+  opacity: 0.3; /* Lo hacemos sutil para que no moleste a los textos */
+}
+
+.bgWrap svg {
+  width: 100%;
+  height: 100%;
+}

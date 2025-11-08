@@ -1,0 +1,71 @@
+/* src/components/Button/Button.module.scss */
+/* ¡Estos son los estilos para tu Botón, escritos en SCSS! */
+
+/* Define variables de color para fácil mantenimiento */
+$color-aws: #FF9900;
+$color-aws-hover: #E68A00;
+$color-primary: #10b981; /* Verde esmeralda */
+$color-primary-hover: #0f9b6e;
+$color-light-bg: #e2e8f0; /* Gris claro */
+$color-light-bg-hover: #cbd5e1;
+$color-light-text: #1a202c; /* Texto oscuro */
+
+/* Estilo base para todos los botones */
+.buttonBase {
+  padding: 0.5rem 1.5rem; /* 8px 24px */
+  border-radius: 8px;
+  font-family: 'Michroma', sans-serif; /* Fuente de título */
+  font-weight: 600;
+  font-size: 1rem;
+  text-align: center;
+  text-decoration: none;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  width: 100%; /* Ocupa el ancho completo por defecto */
+
+  /* Anidación para efectos hover */
+  &:hover {
+    transform: scale(1.03); /* Efecto de "levantar" */
+  }
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+/* Estilo para la variante 'light' (fondo claro) */
+.light {
+  background-color: $color-light-bg;
+  color: $color-light-text;
+  font-family: 'Inter', sans-serif; /* Fuente de texto normal */
+  border-color: #cbd5e1; /* Borde gris */
+
+  &:hover {
+    background-color: $color-light-bg-hover;
+  }
+}
+
+/* Estilo para la variante 'aws' (naranja) */
+.aws {
+  background-color: $color-aws;
+  color: $color-light-text;
+  font-family: 'Inter', sans-serif;
+  border-color: $color-aws-hover;
+
+  &:hover {
+    background-color: $color-aws-hover;
+  }
+}
+
+/* Estilo para la variante 'primary' (verde) */
+.primary {
+  background-color: $color-primary;
+  color: white;
+  border-color: $color-primary-hover;
+
+  &:hover {
+    background-color: $color-primary-hover;
+  }
+}

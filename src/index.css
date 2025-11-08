@@ -1,0 +1,64 @@
+/* src/index.css */
+/* ¡Este es el CSS con el NUEVO fondo JPG! */
+
+/* --- GOOGLE FONTS IMPORTS --- */
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
+/* --- RESET BÁSICO --- */
+body, h1, h2, h3, h4, h5, h6, p, a, button {
+  margin: 0;
+  padding: 0;
+  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  color: #a0aec0; /* Gris neutro */
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Michroma', sans-serif;
+  color: #a7f3d0; /* Verde neón para títulos */
+  line-height: 1.2;
+}
+
+body {
+  min-width: 100vw;
+  min-height: 100vh;
+  overflow-x: hidden;
+  
+  /* --- ¡AQUÍ ESTÁ EL NUEVO FONDO! --- */
+  /* Usamos tu imagen de la sala común de Slytherin */
+  background-image: 
+    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), /* Superposición oscura para legibilidad */
+    url('https://i.pinimg.com/originals/ae/c3/69/aec369fb56f2f8dfc846f672397eea6b.jpg'); /* Tu imagen */
+  
+  background-color: #0c0f0f; /* Color de fondo si la imagen falla */
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed; /* ¡El fondo se queda quieto! */
+}
+
+a {
+  font-weight: 500;
+  color: #34d399; /* green-500 */
+  text-decoration: none;
+}
+a:hover {
+  color: #10b981; /* green-600 */
+  text-decoration: underline;
+}
+
+/* --- ANIMACIONES GLOBALES (para los componentes) --- */
+@keyframes fadeInDown {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
