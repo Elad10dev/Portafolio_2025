@@ -18,9 +18,9 @@ function App() {
         <Route path="/" element={<WelcomePage />} />
         
         {/* Ruta de Login: /login */}
-        <Route path="/login" element={
+        <Route path="/ciberseguridad" element={
           <div style={{ display: 'flex', minHeight: '100vh', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 1 }}>
-            <h1 style={{ fontSize: '2rem', color: '#F87171' }}>Página de Login (Pronto)</h1>
+            <h1 style={{ fontSize: '2rem', color: '#F87171' }}>Ciberseguridad (Pronto)</h1>
           </div>
         } />
         
@@ -34,3 +34,4 @@ function App() {
 }
 
 export default App
+

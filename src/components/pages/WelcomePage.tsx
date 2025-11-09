@@ -53,14 +53,15 @@ export function WelcomePage() {
             variant="light"
             className={styles.button}
           >
-            Bienvenido
+            Dev Web + AWS
           </Button>
           <Button
             onClick={() => navigate('/login')}
             variant="light"
             className={styles.button}
           >
-            Inicio de Sesión
+            Ciberseguridad
+            
           </Button>
         </div>
       </div>
