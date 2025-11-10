@@ -18,6 +18,7 @@
   padding: 1rem 1rem; /* Más compacto arriba */
   background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.7));
   border-bottom: 1px solid rgba(52, 211, 153, 0.3);
+  width: 100%;
 
   @media (min-width: 768px) {
     /* --- CAMBIO CRÍTICO: En desktop, todo en una fila horizontal --- */
@@ -120,6 +121,7 @@
 }
 
 .profilePic {
+  margin-bottom: 5%;
   width: 250px;
   height: 250px;
   border-radius: 9999px;
@@ -304,4 +306,13 @@
 .active {
     opacity: 1;
     z-index: 1; /* Asegura que la imagen activa esté encima */
+}
+
+.navInner {
+    // Importante para alinear horizontalmente el logo y los botones
+    display: flex; 
+    justify-content: space-between; // Mueve el logo a la izquierda y los botones a la derecha
+    align-items: center; // Centra verticalmente el logo y los botones
+    width: 90%; // O el ancho de tu contenido
+    margin: 0 auto; // Centra la barra interna
 }

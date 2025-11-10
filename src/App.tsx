@@ -3,6 +3,7 @@
 import { Routes, Route } from 'react-router-dom'
 import { WelcomePage } from './components/pages/WelcomePage'
 import { PortfolioPage } from './components/pages/PortfolioPage' // 1. Importa la nueva página
+import { CiberseguridadPage } from './components/pages/CiberseguridadPage'
 
 // (El componente LoginForm lo crearemos después)
 // import { LoginForm } from './components/LoginForm' 
@@ -17,13 +18,10 @@ function App() {
         {/* Ruta Principal: / */}
         <Route path="/" element={<WelcomePage />} />
         
-        {/* Ruta de Login: /login */}
-        <Route path="/ciberseguridad" element={
-          <div style={{ display: 'flex', minHeight: '100vh', alignItems: 'center', justifyContent: 'center', position: 'relative', zIndex: 1 }}>
-            <h1 style={{ fontSize: '2rem', color: '#F87171' }}>Ciberseguridad (Pronto)</h1>
-          </div>
-        } />
         
+        {/* Ruta de Ciberseguridad */}
+        <Route path="/ciberseguridad" element={<CiberseguridadPage />} />
+                
         {/* 2. ¡Ruta del Portafolio actualizada! 
            Ahora carga tu componente real */}
         <Route path="/portfolio" element={<PortfolioPage />} />

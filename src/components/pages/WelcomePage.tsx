@@ -56,12 +56,12 @@ export function WelcomePage() {
             Dev Web + AWS
           </Button>
           <Button
-            onClick={() => navigate('/login')}
+            onClick={() => navigate('/ciberseguridad')}
             variant="light"
             className={styles.button}
           >
             Ciberseguridad
-            
+
           </Button>
         </div>
       </div>

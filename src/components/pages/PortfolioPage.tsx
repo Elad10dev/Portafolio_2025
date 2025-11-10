@@ -50,14 +50,15 @@ const SkillIconMap: { [key: string]: React.ReactElement } = {
 // --- Tus Datos (RELLENAR ES CLAVE PARA EL LUNES) ---
 const portfolioData = {
   name: "Eladio Ernesto de Jesus Castañeda Silva",
+  phone: "+54 11 7357 1659", //
   title: "Desarrollador Web FullStack con manejo de Microservicios AWS",
-  bio: `Con un año y tres meses de experiencia continua y activa como desarrollador freelance FullStack, me he especializado en la construcción y optimización de arquitecturas de microservicios sobre la plataforma AWS. Mi enfoque se centra en la entrega de soluciones robustas y escalables, optimizadas para rendimiento y resiliencia en entornos de producción.
+  bio: `Con dos años y siete meses de experiencia continua y activa como desarrollador freelance FullStack, me he especializado en la construcción y optimización de arquitecturas de microservicios sobre la plataforma AWS. Mi enfoque se centra en la entrega de soluciones robustas y escalables, optimizadas para rendimiento y resiliencia en entornos de producción.
         Durante este periodo, he colaborado con diversas entidades, incluyendo Abbyconstructioncorp en Texas, EE. UU., donde he aplicado metodologías ágiles para el desarrollo de infraestructuras en la nube que impulsan operaciones críticas. Mi compromiso es traducir requisitos complejos en sistemas eficientes, garantizando la estabilidad y la evolución tecnológica.`,
  
   // --- ¡NECESITO ESTA INFO, ELADIO! ---
-  email: "eladiosilva@live.com", // (EDITA ESTO)
-  linkedin: "https://www.linkedin.com/in/tu-perfil",
-  github: "https://www.github.com/tu-usuario",
+  email: "eladio.dev@gmail.com", // (EDITA ESTO)
+  linkedin: "https://www.linkedin.com/in/eladio-casta%C3%B1eda-silva/",
+  github: "https://github.com/Elad10dev",
 
   skills: [
     "JavaScript (ES6+)", "TypeScript", "React", "Node.js", "Express",
@@ -205,6 +206,7 @@ export function PortfolioPage() {
         {/* --- SECCIÓN SOBRE MÍ --- */}
         <section id="about" className={styles.section}>
           <h2 className={styles.sectionTitle}>Sobre Mí</h2>
+
           <div className={styles.aboutContent}>
             {/* 2. IMAGEN DE PERFIL */}
             <img
@@ -214,6 +216,9 @@ export function PortfolioPage() {
             />
             <div className={styles.bioContainer}>
               <h3 className={styles.bioTitle}>{portfolioData.name}</h3>
+            <div className={`${styles.contactButton} ${styles.contactLinkText}`}>
+              **Teléfono:** {portfolioData.phone}
+            </div>
               <p className={styles.bioSubtitle}>{portfolioData.title}</p>
               <p className={styles.bioText}>{portfolioData.bio}</p>
             </div>
@@ -296,6 +301,14 @@ export function PortfolioPage() {
             >
               Email
             </Button>
+            <Button
+              // El formato de enlace es wa.me/CODIGOPAISNUMERO
+              onClick={() => window.open('https://wa.me/5491173571659', '_blank')}
+              variant="primary" // Usamos primary para darle más énfasis
+              className={styles.contactButton}
+            >
+              WhatsApp
+            </Button>
             <Button
               onClick={() => window.open(portfolioData.linkedin, '_blank')}
               variant="light"
@@ -303,6 +316,13 @@ export function PortfolioPage() {
             >
               LinkedIn
             </Button>
+            {/* --- NUEVO BOTÓN DE TELÉFONO --- */}
+            <div className={`${styles.contactButton} ${styles.contactLinkText}`}>
+              **Teléfono:** {portfolioData.phone}
+            </div>
+              
+             
+
             <Button
               onClick={() => window.open(portfolioData.github, '_blank')}
               variant="light"
