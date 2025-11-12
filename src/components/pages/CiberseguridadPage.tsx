@@ -66,19 +66,20 @@ const ciberseguridadData = {
   projects: [
     {
       title: "Ciberseguridad (Básico)",
-      description: "Conceptos fundamentales de seguridad (CIA, Ciberdefensa, Gestión de Riesgos) obtenidos del curso ISC2. Ilustrado con imágenes de la Sección 1.",
+      description: "Conceptos fundamentales de seguridad (CIA, Ciberdefensa, Gestión de Riesgos) obtenidos del curso ISC2.",
       imageUrl: Sec1_1, // <--- CORREGIDO: Usando la primera imagen real de la Sección 1
       linkUrl: "#", 
     },
     {
       title: "Laboratorios Linux & Networking",
-      description: "Uso de Kali y Ubuntu en entornos virtuales, configuración de redes con PnetLab, y scripting básico en Bash/Python para seguridad. Ilustrado con imágenes de la Sección 2.",
+      description: "Uso de Kali y Ubuntu en entornos virtuales, configuración de redes con PnetLab, y scripting básico en Bash/Python para seguridad.",
       imageUrl: Sec2_1, // <--- CORREGIDO: Usando la primera imagen real de la Sección 2
       linkUrl: "#", 
     },
     {
       title: "Virtualización y Entornos de Prueba",
-      description: "Configuración de entornos anidados (Nested Virtualization) en Windows/Linux usando VirtualBox y VMWare para laboratorios seguros. Ilustrado con la imagen de la Sección 3.",
+      
+      description: "Configuración de entornos anidados (Nested Virtualization) en Windows/Linux usando VirtualBox y VMWare para laboratorios seguros.",
       imageUrl: Sec3_1, // <--- CORREGIDO: Usando la imagen real de la Sección 3
       linkUrl: "#", 
     }
