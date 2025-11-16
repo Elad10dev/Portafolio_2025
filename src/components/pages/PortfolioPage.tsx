@@ -4,9 +4,8 @@
 import { Button } from '../Buttons/Button';
 import styles from './Portfolio.module.scss';
 import { Link } from 'react-router-dom';
-// *** IMPORTACIONES DE REACT HOOKS CORREGIDAS ***
-import React, { useState, useEffect } from 'react'; 
-import ProfilePic from '../../assets/YO2.jpg'; // 1. Importa tu imagen de perfil (Ruta corregida)
+import React, { useState, useEffect } from 'react';
+import ProfilePic from '../../assets/YO2.jpg';
 
 // Importaciones de imágenes de proyectos
 import Quiosco1 from '../../../src/assets/quiosco-1.png';
@@ -21,319 +20,327 @@ import Abby3 from '../../../src/assets/Abby-3.png';
 import Abby4 from '../../../src/assets/Abby-4.png';
 import Abby5 from '../../../src/assets/Abby-5.png';
 
+// --- (1) ¡NUEVAS IMÁGENES PARA LUIS GUTIERREZ! ---
+// (Asegúrate de que estas rutas sean correctas y las imágenes existan en /src/assets/)
+import Luis1 from '../../../src/assets/luis1.png'; // (¡EDITA ESTO!)
+import Luis2 from '../../../src/assets/luis2.png'; // (¡EDITA ESTO!)
+import Luis3 from '../../../src/assets/luis3.png'; // (¡EDITA ESTO!)
+import Luis4 from '../../../src/assets/luis4.png'; // (¡EDITA ESTO!)
+import Luis5 from '../../../src/assets/luis5.png'; // (¡EDITA ESTO!)
+// ---------------------------------------------------
+
 // Importamos iconos de React Icons
 import {
-  IoLogoNodejs, IoLogoReact, IoLogoJavascript, IoLogoCss3, IoLogoGithub,
-  IoLogoDocker, IoLogoSass, IoArrowBack, IoArrowForward // <-- Añadimos iconos para carrusel
+  IoLogoNodejs, IoLogoReact, IoLogoJavascript, IoLogoCss3, IoLogoGithub,
+  IoLogoDocker, IoLogoSass, IoArrowBack, IoArrowForward
 } from 'react-icons/io5';
 import { SiTypescript, SiPrisma, SiPostgresql, SiAmazon, SiAwslambda } from 'react-icons/si';
 
 // --- Mapeo de habilidades a iconos ---
 const SkillIconMap: { [key: string]: React.ReactElement } = {
-  "JavaScript (ES6+)": <IoLogoJavascript />,
-  "TypeScript": <SiTypescript />,
-  "React": <IoLogoReact />,
-  "Node.js": <IoLogoNodejs />,
-  "Express": <IoLogoNodejs />, // Usamos Node.js para Express
-  "AWS Lambda": <SiAwslambda />,
-  "AWS API Gateway": <SiAmazon />, // Usamos AWS genérico
-  "AWS S3": <SiAmazon />, // Usamos AWS genérico
-  "AWS DynamoDB": <SiAmazon />, // Usamos AWS genérico
-  "PostgreSQL": <SiPostgresql />,
-  "Prisma": <SiPrisma />,
-  "SCSS": <IoLogoSass />,
-  "Git": <IoLogoGithub />,
-  "Docker (Básico)": <IoLogoDocker />,
-  "CSS3": <IoLogoCss3 />, // Añadido CSS3 si se necesita
+  "JavaScript (ES6+)": <IoLogoJavascript />,
+  "TypeScript": <SiTypescript />,
+  "React": <IoLogoReact />,
+  "Node.js": <IoLogoNodejs />,
+  "Express": <IoLogoNodejs />,
+  "AWS Lambda": <SiAwslambda />,
+  "AWS API Gateway": <SiAmazon />,
+  "AWS S3": <SiAmazon />,
+  "AWS DynamoDB": <SiAmazon />,
+  "PostgreSQL": <SiPostgresql />,
+  "Prisma": <SiPrisma />,
+  "SCSS": <IoLogoSass />,
+  "Git": <IoLogoGithub />,
+  "Docker (Básico)": <IoLogoDocker />,
+  "CSS3": <IoLogoCss3 />,
 };
 
 // --- Tus Datos (RELLENAR ES CLAVE PARA EL LUNES) ---
 const portfolioData = {
-  name: "Eladio Ernesto de Jesus Castañeda Silva",
-  phone: "+54 11 7357 1659", //
-  title: "Desarrollador Web FullStack con manejo de Microservicios AWS",
-  bio: `Con dos años y siete meses de experiencia continua y activa como desarrollador freelance FullStack, me he especializado en la construcción y optimización de arquitecturas de microservicios sobre la plataforma AWS. Mi enfoque se centra en la entrega de soluciones robustas y escalables, optimizadas para rendimiento y resiliencia en entornos de producción.
-        Durante este periodo, he colaborado con diversas entidades, incluyendo Abbyconstructioncorp en Texas, EE. UU., donde he aplicado metodologías ágiles para el desarrollo de infraestructuras en la nube que impulsan operaciones críticas. Mi compromiso es traducir requisitos complejos en sistemas eficientes, garantizando la estabilidad y la evolución tecnológica.`,
- 
-  // --- ¡NECESITO ESTA INFO, ELADIO! ---
-  email: "eladio.dev@gmail.com", // (EDITA ESTO)
-  linkedin: "https://www.linkedin.com/in/eladio-casta%C3%B1eda-silva/",
-  github: "https://github.com/Elad10dev",
+  name: "Eladio Ernesto de Jesus Castañeda Silva",
+  phone: "+54 11 7357 1659",
+  title: "Desarrollador Web FullStack con manejo de Microservicios AWS",
+  bio: `Con dos años y siete meses de experiencia continua y activa como desarrollador freelance FullStack, me he especializado en la construcción y optimización de arquitecturas de microservicios sobre la plataforma AWS. Mi enfoque se centra en la entrega de soluciones robustas y escalables, optimizadas para rendimiento y resiliencia en entornos de producción.
+        Durante este periodo, he colaborado con diversas entidades, incluyendo Abbyconstructioncorp en Texas, EE. UU., donde he aplicado metodologías ágiles para el desarrollo de infraestructuras en la nube que impulsan operaciones críticas. Mi compromiso es traducir requisitos complejos en sistemas eficientes, garantizando la estabilidad y la evolución tecnológica.`,
+  
+  email: "eladio.dev@gmail.com",
+  linkedin: "https://www.linkedin.com/in/eladio-casta%C3%B1eda-silva/",
+  github: "https://github.com/Elad10dev",
 
-  skills: [
-    "JavaScript (ES6+)", "TypeScript", "React", "Node.js", "Express",
-    "AWS Lambda", "AWS API Gateway", "AWS S3", "AWS DynamoDB",
-    "PostgreSQL", "Prisma", "SCSS", "Git", "Docker (Básico)"
-  ],
- 
-  projects: [
-    {
-      title: "Tienda Virtual (Proyecto de Graduación)",
-      description: "Plataforma de e-commerce completa con React, Node.js, Prisma y PostgreSQL.",
-      imageUrl: "https://placehold.co/600x400/0f172a/a7f3d0?text=Tienda+Virtual", // Placeholder
-      demoUrl: "https://quiosco-next-iota.vercel.app/order/cafe", // (EDITA ESTO)
-      repoUrl: "https://github.com/Elad10dev/quiosco-next/tree/main"  // (EDITA ESTO)
-    },
-    {
-      title: "Proyecto Abbyconstructioncorp",
-      description: "Optimización de infraestructura en la nube y desarrollo de microservicios.",
-      imageUrl: "https://placehold.co/600x400/0f172a/a7f3d0?text=AWS+Project", // Placeholder
-      demoUrl: "https://abbyconstructioncorp.com/",
-      repoUrl: "https://github.com/Elad10dev/AbbyREACT"
-    },
-    {
-      title: "Más Proyectos (Pronto)",
-      description: "Una colección de mis próximos trabajos y experimentos.",
-      imageUrl: "https://placehold.co/600x400/0f172a/a7f3d0?text=Proyectos+(Pronto)", // Placeholder
-      demoUrl: "#",
-      repoUrl: "#"
-    }
-  ]
+  skills: [
+    "JavaScript (ES6+)", "TypeScript", "React", "Node.js", "Express",
+    "AWS Lambda", "AWS API Gateway", "AWS S3", "AWS DynamoDB",
+    "PostgreSQL", "Prisma", "SCSS", "Git", "Docker (Básico)"
+  ],
+  
+  projects: [
+    {
+      title: "Tienda Virtual (Proyecto de Graduación)",
+      description: "Plataforma de e-commerce completa con React, Node.js, Prisma y PostgreSQL.",
+      imageUrl: "https://placehold.co/600x400/0f172a/a7f3d0?text=Tienda+Virtual", // Placeholder
+      demoUrl: "https://quiosco-next-iota.vercel.app/order/cafe",
+      repoUrl: "https://github.com/Elad10dev/quiosco-next/tree/main"
+    },
+    {
+      title: "Proyecto Abbyconstructioncorp",
+      description: "Optimización de infraestructura en la nube y desarrollo de microservicios.",
+      imageUrl: "https://placehold.co/600x400/0f172a/a7f3d0?text=AWS+Project", // Placeholder
+      demoUrl: "https://abbyconstructioncorp.com/",
+      repoUrl: "https://github.com/Elad10dev/AbbyREACT"
+    },
+    // --- (2) ¡PROYECTO DE LUIS AÑADIDO! ---
+    // (Reemplaza el placeholder "Más Proyectos")
+    {
+      title: "Portafolio Personal (Luis Gutierrez)",
+      description: "Diseño y desarrollo de un portafolio web moderno y responsive para Luis Gutierrez. Un sitio desplegado en producción, enfocado en destacar su marca personal y trayectoria profesional.",
+      imageUrl: "https://placehold.co/600x400/0f172a/a7f3d0?text=Portafolio+Luis", // Placeholder
+      demoUrl: "https://portfolio-luis-deffit.vercel.app/", // (¡EDITA ESTO! - URL del sitio desplegado)
+      repoUrl: "https://github.com/Elad10dev/Portfolio_LuisDeffit"  // (¡EDITA ESTO! - URL del repo si es público)
+    }
+    // ------------------------------------
+  ]
 };
 // -----------------------------------------
 
 
 interface ImageCarouselProps {
-    projectTitle: string;
-    // La imagen inicial se usa si no hay carrusel
-    initialImageUrl: string;
+    projectTitle: string;
+    initialImageUrl: string;
 }
 
 // Mapea los títulos de proyecto a arrays de imágenes importadas
 const ProjectImageMap: { [key: string]: string[] } = {
-    "Tienda Virtual (Proyecto de Graduación)": [Quiosco1, Quiosco2, Quiosco3, Quiosco4, Quiosco5],
-    "Proyecto Abbyconstructioncorp": [Abby1, Abby2, Abby3, Abby4, Abby5],
-    // Más Proyectos (Pronto) usará la imagen inicial simple
+    "Tienda Virtual (Proyecto de Graduación)": [Quiosco1, Quiosco2, Quiosco3, Quiosco4, Quiosco5],
+    "Proyecto Abbyconstructioncorp": [Abby1, Abby2, Abby3, Abby4, Abby5],
+    
+    // --- (3) MAPEO DEL NUEVO PROYECTO ---
+    // (Asegúrate que el título coincida exactamente con el de portfolioData.projects)
+    "Portafolio Personal (Luis Gutierrez)": [Luis1, Luis2, Luis3, Luis4, Luis5],
+    // ------------------------------------
 };
 
 
 export function ImageCarousel({ projectTitle, initialImageUrl }: ImageCarouselProps) {
-    const imageList = ProjectImageMap[projectTitle];
-    const [currentIndex, setCurrentIndex] = useState(0);
+    const imageList = ProjectImageMap[projectTitle];
+    const [currentIndex, setCurrentIndex] = useState(0);
 
-    // Si el proyecto no tiene un carrusel definido, usamos la imagen inicial estática
-    if (!imageList || imageList.length === 0) {
-        return (
-            <div className={styles.carouselContainer}>
-                <img
-                    src={initialImageUrl}
-                    alt={`${projectTitle} - Placeholder`}
-                    className={styles.image}
-                />
-            </div>
-        );
-    }
-   
-    // Hook para el temporizador de cambio de imagen
-    useEffect(() => {
-        const interval = setInterval(() => {
-            setCurrentIndex(prevIndex =>
-                (prevIndex + 1) % imageList.length // Lógica de bucle
-            );
-        }, 5000); // 5000ms = 5 segundos
+    // Si el proyecto no tiene un carrusel definido, usamos la imagen inicial estática
+    if (!imageList || imageList.length === 0) {
+        return (
+            <div className={styles.carouselContainer}>
+                <img
+                    src={initialImageUrl}
+                    alt={`${projectTitle} - Placeholder`}
+                    className={styles.image}
+                />
+            </div>
+        );
+    }
+    
+    // Hook para el temporizador de cambio de imagen
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex(prevIndex =>
+                (prevIndex + 1) % imageList.length // Lógica de bucle
+            );
+        }, 5000); // 5000ms = 5 segundos
 
-        return () => clearInterval(interval); // Limpieza del intervalo
-    }, [imageList.length]);
+        return () => clearInterval(interval); // Limpieza del intervalo
+    }, [imageList.length]);
 
-    const goToNext = () => {
-      setCurrentIndex((prevIndex) => (prevIndex + 1) % imageList.length);
-    };
+    const goToNext = () => {
+      setCurrentIndex((prevIndex) => (prevIndex + 1) % imageList.length);
+    };
 
-    const goToPrev = () => {
-      setCurrentIndex((prevIndex) => (prevIndex - 1 + imageList.length) % imageList.length);
-    };
+    const goToPrev = () => {
+      setCurrentIndex((prevIndex) => (prevIndex - 1 + imageList.length) % imageList.length);
+    };
 
 
-    // *** CIERRE Y RETURN CORRECTO DEL COMPONENTE ***
-    return (
-      <div className={styles.carouselContainer}>
-        <img
-          src={imageList[currentIndex]}
-          alt={`${projectTitle} - Imagen ${currentIndex + 1}`}
-          className={styles.image}
-        />
-        {/* Controles de navegación */}
-        <button onClick={goToPrev} className={`${styles.carouselButton} ${styles.prev}`}>
-          <IoArrowBack size={24} />
-        </button>
-        <button onClick={goToNext} className={`${styles.carouselButton} ${styles.next}`}>
-          <IoArrowForward size={24} />
-        </button>
-        {/* Indicadores (puntos) */}
-        <div className={styles.carouselIndicators}>
-          {imageList.map((_, index) => (
-            <div
-              key={index}
-              className={`${styles.indicator} ${index === currentIndex ? styles.active : ''}`}
-              onClick={() => setCurrentIndex(index)}
-            />
-          ))}
-        </div>
-      </div>
-    );
+    return (
+      <div className={styles.carouselContainer}>
+        <img
+          src={imageList[currentIndex]}
+          alt={`${projectTitle} - Imagen ${currentIndex + 1}`}
+          className={styles.image}
+        />
+        {/* Controles de navegación */}
+        <button onClick={goToPrev} className={`${styles.carouselButton} ${styles.prev}`}>
+          <IoArrowBack size={24} />
+        </button>
+        <button onClick={goToNext} className={`${styles.carouselButton} ${styles.next}`}>
+          <IoArrowForward size={24} />
+        </button>
+        {/* Indicadores (puntos) */}
+        <div className={styles.carouselIndicators}>
+          {imageList.map((_, index) => (
+            <div
+              key={index}
+              className={`${styles.indicator} ${index === currentIndex ? styles.active : ''}`}
+              onClick={() => setCurrentIndex(index)}
+            />
+          ))}
+        </div>
+      </div>
+    );
 }
 // -----------------------------------------------------
 
 export function PortfolioPage() {
-  return (
-    <div className={styles.portfolioPage}>
-     
-      {/* --- NUEVA NAVEGACIÓN CENTRADA --- */}
-      <nav className={styles.portfolioNav}>
-        <div className={styles.navInner}> {/* Contenedor para centrar */}
-          <Link to="/" className={styles.navLogo}>
-            {portfolioData.name}
-          </Link>
-          <div className={styles.navButtons}>
-            <a href="#about">
-              <Button variant="light" className={styles.navButton}>Sobre Mí</Button>
-            </a>
-            <a href="#skills">
-              <Button variant="light" className={styles.navButton}>Habilidades</Button>
-            </a>
-            <a href="#projects">
-              <Button variant="light" className={styles.navButton}>Proyectos</Button>
-            </a>
-            <a href="#contact">
-              <Button variant="light" className={styles.navButton}>Contacto</Button>
-            </a>
-          </div>
-        </div>
-      </nav>
-     
-      <main className={styles.mainContent}>
-       
-        {/* --- SECCIÓN SOBRE MÍ --- */}
-        <section id="about" className={styles.section}>
-          <h2 className={styles.sectionTitle}>Sobre Mí</h2>
+  return (
+    <div className={styles.portfolioPage}>
+      
+      {/* --- NUEVA NAVEGACIÓN CENTRADA --- */}
+      <nav className={styles.portfolioNav}>
+        <div className={styles.navInner}> {/* Contenedor para centrar */}
+          <Link to="/" className={styles.navLogo}>
+            {portfolioData.name}
+          </Link>
+          <div className={styles.navButtons}>
+            <a href="#about">
+              <Button variant="light" className={styles.navButton}>Sobre Mí</Button>
+            </a>
+            <a href="#skills">
+              <Button variant="light" className={styles.navButton}>Habilidades</Button>
+            </a>
+            <a href="#projects">
+              <Button variant="light" className={styles.navButton}>Proyectos</Button>
+            </a>
+            <a href="#contact">
+              <Button variant="light" className={styles.navButton}>Contacto</Button>
+            </a>
+          </div>
+        </div>
+      </nav>
+      
+      <main className={styles.mainContent}>
+        
+        {/* --- SECCIÓN SOBRE MÍ --- */}
+        <section id="about" className={styles.section}>
+          <h2 className={styles.sectionTitle}>Sobre Mí</h2>
 
-          <div className={styles.aboutContent}>
-            {/* 2. IMAGEN DE PERFIL */}
-            <img
-              src={ProfilePic}
-              alt="Eladio Silva"
-              className={styles.profilePic}
-            />
-            <div className={styles.bioContainer}>
-              <h3 className={styles.bioTitle}>{portfolioData.name}</h3>
+          <div className={styles.aboutContent}>
+            <img
+              src={ProfilePic}
+              alt="Eladio Silva"
+              className={styles.profilePic}
+            />
+            <div className={styles.bioContainer}>
+              <h3 className={styles.bioTitle}>{portfolioData.name}</h3>
             <div className={`${styles.contactButton} ${styles.contactLinkText}`}>
-              **Teléfono:** {portfolioData.phone}
-            </div>
-              <p className={styles.bioSubtitle}>{portfolioData.title}</p>
-              <p className={styles.bioText}>{portfolioData.bio}</p>
-            </div>
-          </div>
-        </section>
+              **Teléfono:** {portfolioData.phone}
+            </div>
+              <p className={styles.bioSubtitle}>{portfolioData.title}</p>
+              <p className={styles.bioText}>{portfolioData.bio}</p>
+            </div>
+          </div>
+        </section>
 
-        {/* --- SECCIÓN HABILIDADES (AHORA CON ICONOS) --- */}
-        <section id="skills" className={styles.section}>
-          <h2 className={styles.sectionTitle}>Arsenal de Habilidades</h2>
-          <div className={styles.skillsGrid}>
-            {portfolioData.skills.map((skill) => (
-              <div key={skill} className={styles.skillCard}>
-                {/* Renderizamos el icono si existe en el mapa */}
-                <div className={styles.skillIcon}>
-                  {SkillIconMap[skill] || <IoLogoNodejs />}
-                </div>
-                {skill}
-              </div>
-            ))}
-          </div>
-        </section>
-        {/* --- SECCIÓN PROYECTOS --- */}
-        <section id="projects" className={styles.section}>
-          <h2 className={styles.sectionTitle}>Proyectos Destacados</h2>
-          <div className={styles.projectsGrid}>
-            {portfolioData.projects.map((project) => (
-              <div key={project.title} className={styles.projectCard}>
-                {/* *** USAMOS EL CAROUSEL O LA IMAGEN SIMPLE *** */}
-                {ProjectImageMap[project.title] && ProjectImageMap[project.title].length > 0 ? (
-                  <ImageCarousel
-                    projectTitle={project.title}
-                    initialImageUrl={project.imageUrl}
-                  />
-                ) : (
-                  <img
-                    src={project.imageUrl}
-                    alt={project.title}
-                    className={styles.projectImage} // Usar la clase de imagen simple
-                  />
-                )}
-                {/* --------------------------------------------- */}
-                <div className={styles.projectContent}>
-                  <h3 className={styles.projectTitle}>{project.title}</h3>
-                  <p className={styles.projectDescription}>{project.description}</p>
-                  <div className={styles.projectLinks}>
-                    <Button
-                      onClick={() => window.open(project.demoUrl, '_blank')}
-                      variant="primary"
-                      className={styles.projectButton}
-                      disabled={project.demoUrl === "#"}
-                    >
-                      Ver Demo
-                    </Button>
-                    <Button
-                      onClick={() => window.open(project.repoUrl, '_blank')}
-                      variant="secondary"
-                      className={styles.projectButton}
-                      disabled={project.repoUrl === "#"}
-                    >
-                      Ver Código
-                    </Button>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
+        {/* --- SECCIÓN HABILIDADES (AHORA CON ICONOS) --- */}
+        <section id="skills" className={styles.section}>
+          <h2 className={styles.sectionTitle}>Arsenal de Habilidades</h2>
+          <div className={styles.skillsGrid}>
+            {portfolioData.skills.map((skill) => (
+              <div key={skill} className={styles.skillCard}>
+                <div className={styles.skillIcon}>
+                  {SkillIconMap[skill] || <IoLogoNodejs />}
+                </div>
+                {skill}
+              </div>
+            ))}
+          </div>
+        </section>
+        {/* --- SECCIÓN PROYECTOS --- */}
+        <section id="projects" className={styles.section}>
+          <h2 className={styles.sectionTitle}>Proyectos Destacados</h2>
+          <div className={styles.projectsGrid}>
+            {portfolioData.projects.map((project) => (
+              <div key={project.title} className={styles.projectCard}>
+                {/* *** USAMOS EL CAROUSEL O LA IMAGEN SIMPLE *** */}
+                {ProjectImageMap[project.title] && ProjectImageMap[project.title].length > 0 ? (
+                  <ImageCarousel
+                    projectTitle={project.title}
+                    initialImageUrl={project.imageUrl}
+                  />
+                ) : (
+                  <img
+                    src={project.imageUrl}
+                    alt={project.title}
+                    className={styles.projectImage} // Usar la clase de imagen simple
+                  />
+                )}
+                {/* --------------------------------------------- */}
+                <div className={styles.projectContent}>
+                  <h3 className={styles.projectTitle}>{project.title}</h3>
+                  <p className={styles.projectDescription}>{project.description}</p>
+                  <div className={styles.projectLinks}>
+                    <Button
+                      onClick={() => window.open(project.demoUrl, '_blank')}
+                      variant="primary"
+                      className={styles.projectButton}
+                      disabled={project.demoUrl === "#"}
+                    >
+                      Ver Demo
+                    </Button>
+                    <Button
+                      onClick={() => window.open(project.repoUrl, '_blank')}
+                      variant="secondary"
+                      className={styles.projectButton}
+                      disabled={project.repoUrl === "#"}
+                    >
+                      Ver Código
+                    </Button>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
-        {/* --- SECCIÓN CONTACTO --- */}
-        <section id="contact" className={styles.section}>
-          <h2 className={styles.sectionTitle}>Contacto</h2>
-          <p className={styles.contactSubtitle}>
-            ¿Interesado en colaborar? Envíame un mensaje.
-          </p>
-          <div className={styles.contactLinks}>
-            <Button
-              onClick={() => window.location.href = `mailto:${portfolioData.email}`}
-              variant="light"
-              className={styles.contactButton}
-            >
-              Email
-            </Button>
+        {/* --- SECCIÓN CONTACTO --- */}
+        <section id="contact" className={styles.section}>
+          <h2 className={styles.sectionTitle}>Contacto</h2>
+          <p className={styles.contactSubtitle}>
+            ¿Interesado en colaborar? Envíame un mensaje.
+          </p>
+          <div className={styles.contactLinks}>
+            <Button
+              onClick={() => window.location.href = `mailto:${portfolioData.email}`}
+              variant="light"
+              className={styles.contactButton}
+            >
+              Email
+            </Button>
             <Button
               // El formato de enlace es wa.me/CODIGOPAISNUMERO
               onClick={() => window.open('https://wa.me/5491173571659', '_blank')}
-              variant="primary" // Usamos primary para darle más énfasis
-              className={styles.contactButton}
-            >
-              WhatsApp
-            </Button>
-            <Button
-              onClick={() => window.open(portfolioData.linkedin, '_blank')}
-              variant="light"
-              className={styles.contactButton}
-            >
-              LinkedIn
-            </Button>
+              variant="primary" // Usamos primary para darle más énfasis
+              className={styles.contactButton}
+            >
+              WhatsApp
+            </Button>
+            <Button
+              onClick={() => window.open(portfolioData.linkedin, '_blank')}
+              variant="light"
+              className={styles.contactButton}
+            >
+              LinkedIn
+            </Button>
             {/* --- NUEVO BOTÓN DE TELÉFONO --- */}
-            <div className={`${styles.contactButton} ${styles.contactLinkText}`}>
-              **Teléfono:** {portfolioData.phone}
-            </div>
-              
-             
-
-            <Button
-              onClick={() => window.open(portfolioData.github, '_blank')}
-              variant="light"
-              className={styles.contactButton}
-            >
-              GitHub
-            </Button>
-          </div>
-        </section>
-       
-      </main>
-    </div>
-  );
+            <div className={`${styles.contactButton} ${styles.contactLinkText}`}>
+              **Teléfono:** {portfolioData.phone}
+            </div>
+            <Button
+              onClick={() => window.open(portfolioData.github, '_blank')}
+              variant="light"
+              className={styles.contactButton}
+            >
+              GitHub
+            </Button>
+          </div>
+        </section>
+        
+      </main>
+    </div>
+  );
 }
