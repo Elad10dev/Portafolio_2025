@@ -51,23 +51,15 @@ html {
 
 /* --- ESTILOS BÁSICOS DEL SITIO --- */
 
-body, h1, h2, h3, h4, h5, h6, a, button {
+body, h1, h2, h3, h4, h5, h6, p, a, button {
   margin: 0;
   padding: 0;
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color: #a0aec0; /* Gris neutro */
+  color: #123900; /* Gris neutro */
   box-sizing: border-box;
 }
 
-p {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color: #a0aec0; /* Gris neutro */
-  box-sizing: border-box;
-  background-color: #0f172a;
-  border-radius: 10%;
-}
+
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Michroma', sans-serif;
