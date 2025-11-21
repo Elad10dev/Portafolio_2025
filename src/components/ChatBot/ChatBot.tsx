@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { createChat } from '@n8n/chat';
-import '@n8n/chat/dist/style.css'; // Estilos base de la librería
-import './chatBot.module.scss';        // TUS estilos personalizados (SCSS)
+import '@n8n/chat/dist/style.css'; 
+import './chatBot.module.scss'; // Asegúrate de que este nombre coincida con tu archivo
 
 export const ChatWidget = () => {
   useEffect(() => {
@@ -9,9 +9,8 @@ export const ChatWidget = () => {
       webhookUrl: 'https://eladio.app.n8n.cloud/webhook/c13ae646-74f6-4d49-a179-dd2034581e10/chat',
       mode: 'window',
       showWelcomeScreen: true,
-      defaultLanguage: 'en', // Truco para forzar la sobreescritura en español abajo
+      defaultLanguage: 'en',
       
-      // Configuración de Textos (Internacionalización)
       initialMessages: [
         '👋 ¡Hola! Soy Eladio IA.',
         '¿Buscas Desarrollo de Software, Webs o Automatización?',
@@ -27,9 +26,8 @@ export const ChatWidget = () => {
           closeButtonTooltip: 'Cerrar asistente',
         },
       },
-      
-      // Nota: Ya no necesitamos el bloque 'style' gigante aquí 
-      // porque todo está controlado desde ChatWidget.scss
+      // Eliminamos el bloque 'style' para corregir el error de TypeScript.
+      // El archivo SCSS se encargará de todo el diseño.
     });
   }, []);
 

@@ -1,38 +1,40 @@
-// Importamos los estilos base de la librería (opcional si tu bundler lo soporta aquí, sino mantenlo en el TSX)
-// @import '@n8n/chat/dist/style.css'; 
-
-// Definición del Tema Eladio IA (Variables CSS globales)
+// Variables Globales (El chat las leerá automáticamente)
 :root {
-  // --- Paleta de Colores (Verde Neón & Dark Mode) ---
-  --chat--color-primary: #10b981;       /* Verde Esmeralda Principal */
-  --chat--color-secondary: #064e3b;     /* Verde Oscuro para contrastes */
-  --chat--color-font: #ffffff;          /* Fuente principal blanca */
+  --chat--color-primary: #10b981;
+  --chat--color-secondary: #064e3b;
+  --chat--color-font: #ffffff;
   
-  // --- Fondos y Componentes ---
-  --chat--header--background: #111827;          /* Encabezado oscuro */
-  --chat--message--bot--background: #1f2937;    /* Burbuja del bot (gris oscuro) */
-  --chat--message--bot--color: #f3f4f6;         /* Texto del bot */
-  --chat--message--user--background: #10b981;   /* Burbuja del usuario (verde) */
-  --chat--message--user--color: #ffffff;        /* Texto del usuario */
+  --chat--header--background: #111827;
+  --chat--message--bot--background: #1f2937;
+  --chat--message--bot--color: #f3f4f6;
+  --chat--message--user--background: #10b981;
+  --chat--message--user--color: #ffffff;
   
-  // --- Botón Flotante (Launcher) ---
   --chat--toggle--background: #10b981;
   --chat--toggle--hover--background: #34d399;
-  
-  // --- Dimensiones y Posición (Sobrescribiendo defaults) ---
+
   --chat--window--width: 400px;
   --chat--window--height: 600px;
   --chat--window--border-radius: 16px;
 }
 
-// Personalización avanzada del contenedor del chat
-// n8n inyecta el chat en un div, podemos forzar estilos aquí si es necesario
-.n8n-chat-widget {
-  z-index: 9999 !important;
-  right: 20px !important;
-  bottom: 20px !important;
-  
-  // Sombra Neón personalizada
-  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4), 
-              0 8px 10px -6px rgba(16, 185, 129, 0.2) !important;
+// TRUCO DE PRODUCCIÓN:
+// Usamos "body" para forzar la prioridad sobre los estilos de la librería
+body {
+  .n8n-chat-widget {
+    z-index: 9999 !important;
+    right: 20px !important;
+    bottom: 20px !important;
+    
+    box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4), 
+                0 8px 10px -6px rgba(16, 185, 129, 0.2) !important;
+    
+    border-radius: 16px !important;
+    overflow: hidden;
+  }
+
+  .n8n-chat-toggle {
+     // Asegura que el botón también tome el color si falla la variable
+     background-color: #10b981 !important;
+  }
 }
