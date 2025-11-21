@@ -1,5 +1,5 @@
 /* src/index.css */
-/* ¡Este es el CSS COMBINADO con el fondo y el estilo N8N (Slytherin Theme)! */
+/* ¡Este es el CSS COMBINADO con el fondo y el estilo N8N (Slytherin Theme V2 REFINADO)! */
 
 /* --- GOOGLE FONTS IMPORTS --- */
 @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
@@ -8,126 +8,128 @@
 /* --- RESET BÁSICO --- */
 /* APLICA SMOOTH SCROLL AQUI */
 html {
-  scroll-behavior: smooth; /* <-- ¡ESTO HACE LA MAGIA DEL SCROLL SUAVE! */
+ scroll-behavior: smooth; /* <-- ¡ESTO HACE LA MAGIA DEL SCROLL SUAVE! */
 }
 
-/* --- N8N CHAT WIDGET: VARIABLES GLOBALES FORZADAS (SLYTHERIN THEME) --- */
+/* --- N8N CHAT WIDGET: VARIABLES GLOBALES FORZADAS (SLYTHERIN V2 REFINADO) --- */
 
 :root {
-  /* 1. Colores Principales */
-  --chat--color-primary: #10b981;        /* Verde Esmeralda (Botones, User Bubble) */
-  --chat--color-secondary: #064e3b;      /* Verde Oscuro */
-  --chat--color-dark: #0f172a;           /* Color oscuro base */
-  --chat--color-light: #f8fafc;           /* Color claro base */
+ /* 1. Colores Principales */
+ --chat--color-primary: #10b981;/* Verde Esmeralda (Principal/User Bubble) */
+ --chat--color-secondary: #065f46;/* Verde Oscuro Refinado */
+ --chat--color-dark: #0f172a;/* Color oscuro base (Slate/Navy) */
+ --chat--color-light: #f0fdf4;/* Color claro base (Blanco muy suave) */
 
-  /* 2. Fuentes y Textos (CRUCIAL PARA EL CONTRASTE) */
-  --chat--color-font: #f3f4f6;            /* Texto general: Blanco Humo */
-  --chat--color-placeholder: #9ca3af;    /* Placeholder input: Gris medio */
+ /* 2. Fuentes y Textos (CRUCIAL PARA EL CONTRASTE) */
+ --chat--color-font: #ecfdf5;/* Texto general: Menta muy claro */
+ --chat--color-placeholder: #526558;/* Placeholder input: Gris-Verde Medio */
 
-  /* 3. Fondos de la Ventana */
-  --chat--window--background: #111827;  /* FONDO DEL CHAT: Gris muy oscuro (No blanco) */
-  --chat--header--background: #0f172a;  /* Header: Casi negro */
+ /* 3. Fondos de la Ventana */
+ --chat--window--background: #0f1e14;/* FONDO DEL CHAT: Verde Casi Negro (Más oscuro) */
+ --chat--header--background: #0b1a10;/* Header: Aún más oscuro (Para profundidad) */
 
-  /* 4. Burbujas de Mensaje */
-  --chat--message--bot--background: #1f2937; /* Bot: Gris oscuro */
-  --chat--message--bot--color: #f3f4f6;      /* Texto Bot: Blanco */
-  
-  --chat--message--user--background: #10b981; /* User: Verde */
-  --chat--message--user--color: #ffffff;      /* Texto User: Blanco Puro */
+ /* 4. Burbujas de Mensaje */
+ /* Hacemos que la burbuja del Bot sea más oscura */
+ --chat--message--bot--background: #112715; /* Bot: Fondo muy oscuro y sutil */
+ --chat--message--bot--color: #ecfdf5;/* Texto Bot: Menta Claro */
 
-  /* 5. Input / Escribir */
-  --chat--input--background: #1f2937;    /* Fondo del input */
-  --chat--input--color: #ffffff;          /* Color letra al escribir */
+ /* Hacemos que la burbuja del User use el Primary para distinción y contraste */
+ --chat--message--user--background: #027a3c; /* User: Verde Esmeralda (Destaca) */
+ --chat--message--user--color: #0f172a;/* Texto User: Oscuro para alto contraste */
 
-  /* 6. Botón Flotante */
-  --chat--toggle--background: #10b981;
-  --chat--toggle--hover--background: #34d399;
-  --chat--toggle--active--align: center;
-  
-  /* 7. Dimensiones */
-  --chat--window--width: 380px;
-  --chat--window--height: 600px;
+ /* 5. Input / Escribir */
+ --chat--input--background: #1faf73;/* Fondo del input: Verde oscuro sólido */
+ --chat--input--color: #ecfdf5;/* Color letra al escribir: Menta Claro */
+
+ /* 6. Botón Flotante */
+ --chat--toggle--background: #10b981;
+ --chat--toggle--hover--background: #059669; /* Hover un poco más intenso */
+ --chat--toggle--active--align: center;
+
+ /* 7. Dimensiones */
+ --chat--window--width: 380px;
+ --chat--window--height: 600px;
 }
 
 /* --- ESTILOS BÁSICOS DEL SITIO --- */
 
 body, h1, h2, h3, h4, h5, h6, p, a, button {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color: #a0aec0; /* Gris neutro */
-  box-sizing: border-box;
+ margin: 0;
+ padding: 0;
+ font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+ color: #a0aec0; /* Gris neutro */
+ box-sizing: border-box;
 }
 
-
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Michroma', sans-serif;
-  color: #a7f3d0; /* Verde neón para títulos */
-  line-height: 1.2;
+ font-family: 'Michroma', sans-serif;
+ color: #a7f3d0; /* Verde neón para títulos */
+ line-height: 1.2;
 }
 
 body {
-  min-width: 100vw;
-  min-height: 100vh;
-  overflow-x: hidden;
-  
-  /* --- FONDO DE SALA COMÚN SLYTHERIN --- */
-  background-image: 
-    linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), /* Superposición oscura para legibilidad */
-    url('https://i.pinimg.com/originals/ae/c3/69/aec369fb56f2f8dfc846f672397eea6b.jpg'); /* Tu imagen */
-  
-  background-color: #0c0f0f; 
-  background-size: cover;
-  background-position: center;
-  background-attachment: fixed; /* El fondo se queda quieto */
+ min-width: 100vw;
+ min-height: 100vh;
+ overflow-x: hidden;
+
+ /* --- FONDO DE SALA COMÚN SLYTHERIN --- */
+ background-image:
+ linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)), /* Superposición oscura para legibilidad */
+ url('https://i.pinimg.com/originals/ae/c3/69/aec369fb56f2f8dfc846f672397eea6b.jpg'); /* Tu imagen */
+
+ background-color: #0c0f0f;
+ background-size: cover;
+ background-position: center;
+ background-attachment: fixed; /* El fondo se queda quieto */
 }
 
 a {
-  font-weight: 500;
-  color: #34d399; /* green-500 */
-  text-decoration: none;
-  transition: color 0.3s ease;
+ font-weight: 500;
+ color: #34d399; /* green-500 */
+ text-decoration: none;
+ transition: color 0.3s ease;
 }
 a:hover {
-  color: #10b981; /* green-600 */
-  text-decoration: underline;
+ color: #10b981; /* green-600 */
+ text-decoration: underline;
 }
 
 /* --- REGLAS DE ALTA PRIORIDAD PARA EL WIDGET DE CHAT (Para sobrescribir n8n) --- */
 
 body {
-  /* El contenedor principal del chat */
-  .n8n-chat-widget {
-    z-index: 99999 !important;
-    right: 20px !important;
-    bottom: 20px !important;
-    border-radius: 16px !important;
-    overflow: hidden !important;
-    
-    /* Sombra Verde Neón "Slytherin" */
-    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3), 
-                  0 0 40px rgba(16, 185, 129, 0.1) !important;
-    
-    /* Aseguramos que el fondo sea oscuro sí o sí */
-    background-color: #111827 !important; 
-    font-family: 'Inter', sans-serif !important;
-  }
+ /* El contenedor principal del chat */
+ .n8n-chat-widget {
+ z-index: 99999 !important;
+ right: 20px !important;
+ bottom: 20px !important;
+ border-radius: 16px !important;
+ overflow: hidden !important;
 
-  /* El botón flotante (Toggle Button) */
-  .n8n-chat-toggle {
-    background-color: #10b981 !important;
-    color: #ffffff !important;
-    width: 60px !important;
-    height: 60px !important;
-    
-    &:hover {
-      background-color: #34d399 !important;
-      transform: scale(1.05);
-    }
-  }
+ /* Sombra Verde Esmeralda "Slytherin" */
+ box-shadow: 0 0 25px rgba(16, 185, 129, 0.5), /* Más intensa y ligeramente más grande */
+ 0 0 50px rgba(16, 185, 129, 0.2) !important;
 
-  /* Corrección de textos dentro del chat (Si n8n inyecta clases raras) */
-  .n8n-chat-message-layout {
-    color: #f3f4f6 !important;
-  }
+ /* Usamos la variable de fondo de la ventana */
+ background-color: var(--chat--window--background) !important;
+ font-family: 'Inter', sans-serif !important;
+ }
+
+ /* El botón flotante (Toggle Button) */
+ .n8n-chat-toggle {
+ background-color: var(--chat--toggle--background) !important;
+ color: #0b1a10 !important; /* CAMBIO: Color de ícono/texto a oscuro para contraste */
+ width: 60px !important;
+ height: 60px !important;
+
+ &:hover {
+ background-color: var(--chat--toggle--hover--background) !important;
+ transform: scale(1.05);
+ box-shadow: 0 0 15px rgba(16, 185, 129, 0.7); /* Sombra sutil al hacer hover */
+ }
+ }
+
+ /* Corrección de textos dentro del chat (Si n8n inyecta clases raras) */
+ .n8n-chat-message-layout {
+ color: var(--chat--color-font) !important;
+ }
 }
