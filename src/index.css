@@ -57,7 +57,10 @@ body, h1, h2, h3, h4, h5, h6, p, a, button {
   font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
   color: #a0aec0; /* Gris neutro */
   box-sizing: border-box;
+  background-color: #0f172a;
 }
+
+
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Michroma', sans-serif;
