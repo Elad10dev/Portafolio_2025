@@ -1,5 +1,5 @@
 /* src/index.css */
-/* ¡Este es el CSS con el NUEVO fondo JPG y Smooth Scroll! */
+/* ¡Este es el CSS COMBINADO con el fondo y el estilo N8N (Slytherin Theme)! */
 
 /* --- GOOGLE FONTS IMPORTS --- */
 @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
@@ -10,6 +10,46 @@
 html {
   scroll-behavior: smooth; /* <-- ¡ESTO HACE LA MAGIA DEL SCROLL SUAVE! */
 }
+
+/* --- N8N CHAT WIDGET: VARIABLES GLOBALES FORZADAS (SLYTHERIN THEME) --- */
+
+:root {
+  /* 1. Colores Principales */
+  --chat--color-primary: #10b981;        /* Verde Esmeralda (Botones, User Bubble) */
+  --chat--color-secondary: #064e3b;      /* Verde Oscuro */
+  --chat--color-dark: #0f172a;           /* Color oscuro base */
+  --chat--color-light: #f8fafc;           /* Color claro base */
+
+  /* 2. Fuentes y Textos (CRUCIAL PARA EL CONTRASTE) */
+  --chat--color-font: #f3f4f6;            /* Texto general: Blanco Humo */
+  --chat--color-placeholder: #9ca3af;    /* Placeholder input: Gris medio */
+
+  /* 3. Fondos de la Ventana */
+  --chat--window--background: #111827;  /* FONDO DEL CHAT: Gris muy oscuro (No blanco) */
+  --chat--header--background: #0f172a;  /* Header: Casi negro */
+
+  /* 4. Burbujas de Mensaje */
+  --chat--message--bot--background: #1f2937; /* Bot: Gris oscuro */
+  --chat--message--bot--color: #f3f4f6;      /* Texto Bot: Blanco */
+  
+  --chat--message--user--background: #10b981; /* User: Verde */
+  --chat--message--user--color: #ffffff;      /* Texto User: Blanco Puro */
+
+  /* 5. Input / Escribir */
+  --chat--input--background: #1f2937;    /* Fondo del input */
+  --chat--input--color: #ffffff;          /* Color letra al escribir */
+
+  /* 6. Botón Flotante */
+  --chat--toggle--background: #10b981;
+  --chat--toggle--hover--background: #34d399;
+  --chat--toggle--active--align: center;
+  
+  /* 7. Dimensiones */
+  --chat--window--width: 380px;
+  --chat--window--height: 600px;
+}
+
+/* --- ESTILOS BÁSICOS DEL SITIO --- */
 
 body, h1, h2, h3, h4, h5, h6, p, a, button {
   margin: 0;
@@ -50,4 +90,43 @@ a {
 a:hover {
   color: #10b981; /* green-600 */
   text-decoration: underline;
+}
+
+/* --- REGLAS DE ALTA PRIORIDAD PARA EL WIDGET DE CHAT (Para sobrescribir n8n) --- */
+
+body {
+  /* El contenedor principal del chat */
+  .n8n-chat-widget {
+    z-index: 99999 !important;
+    right: 20px !important;
+    bottom: 20px !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    
+    /* Sombra Verde Neón "Slytherin" */
+    box-shadow: 0 0 20px rgba(16, 185, 129, 0.3), 
+                  0 0 40px rgba(16, 185, 129, 0.1) !important;
+    
+    /* Aseguramos que el fondo sea oscuro sí o sí */
+    background-color: #111827 !important; 
+    font-family: 'Inter', sans-serif !important;
+  }
+
+  /* El botón flotante (Toggle Button) */
+  .n8n-chat-toggle {
+    background-color: #10b981 !important;
+    color: #ffffff !important;
+    width: 60px !important;
+    height: 60px !important;
+    
+    &:hover {
+      background-color: #34d399 !important;
+      transform: scale(1.05);
+    }
+  }
+
+  /* Corrección de textos dentro del chat (Si n8n inyecta clases raras) */
+  .n8n-chat-message-layout {
+    color: #f3f4f6 !important;
+  }
 }
