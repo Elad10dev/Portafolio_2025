@@ -1,38 +1,283 @@
-// Importamos los estilos base de la librería (opcional si tu bundler lo soporta aquí, sino mantenlo en el TSX)
-// @import '@n8n/chat/dist/style.css'; 
+// ==========================================
+// 1. VARIABLES & CONFIGURACIÓN
+// ==========================================
+$msn-blue-light: #f0faff;
+$msn-blue-border: #638aaa;
+$msn-title-gradient-start: #b1dcfc;
+$msn-title-gradient-end: #5b96d9;
+$window-bg: #ebf4fc;
 
-// Definición del Tema Eladio IA (Variables CSS globales)
-:root {
-  // --- Paleta de Colores (Verde Neón & Dark Mode) ---
-  --chat--color-primary: #10b981;       /* Verde Esmeralda Principal */
-  --chat--color-secondary: #064e3b;     /* Verde Oscuro para contrastes */
-  --chat--color-font: #ffffff;          /* Fuente principal blanca */
-  
-  // --- Fondos y Componentes ---
-  --chat--header--background: #111827;          /* Encabezado oscuro */
-  --chat--message--bot--background: #1f2937;    /* Burbuja del bot (gris oscuro) */
-  --chat--message--bot--color: #f3f4f6;         /* Texto del bot */
-  --chat--message--user--background: #10b981;   /* Burbuja del usuario (verde) */
-  --chat--message--user--color: #ffffff;        /* Texto del usuario */
-  
-  // --- Botón Flotante (Launcher) ---
-  --chat--toggle--background: #10b981;
-  --chat--toggle--hover--background: #34d399;
-  
-  // --- Dimensiones y Posición (Sobrescribiendo defaults) ---
-  --chat--window--width: 400px;
-  --chat--window--height: 600px;
-  --chat--window--border-radius: 16px;
+// ==========================================
+// 2. OVERLAY (FONDO OSCURO)
+// ==========================================
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4); 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+  backdrop-filter: blur(2px);
+  padding: 10px;
 }
 
-// Personalización avanzada del contenedor del chat
-// n8n inyecta el chat en un div, podemos forzar estilos aquí si es necesario
-.n8n-chat-widget {
-  z-index: 9999 !important;
-  right: 20px !important;
-  bottom: 20px !important;
+// ==========================================
+// 3. VENTANA MSN (CONTENEDOR)
+// ==========================================
+.msnWindow {
+  width: 800px;
+  height: 600px;
+  max-width: 100%; 
+  max-height: 100%;
+  background-color: $window-bg;
+  border: 1px solid #486994;
+  border-radius: 8px 8px 0 0;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  font-family: 'Tahoma', 'Segoe UI', sans-serif;
+  animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+// ==========================================
+// 4. BARRA DE TÍTULO
+// ==========================================
+.titleBar {
+  height: 30px;
+  min-height: 30px; 
+  background: linear-gradient(to bottom, $msn-title-gradient-start 0%, $msn-title-gradient-end 100%);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  border-bottom: 1px solid #486994;
   
-  // Sombra Neón personalizada
-  box-shadow: 0 10px 25px -5px rgba(16, 185, 129, 0.4), 
-              0 8px 10px -6px rgba(16, 185, 129, 0.2) !important;
+  .titleText {
+    font-size: 13px;
+    color: #0c2b49;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-shadow: 0 1px 0 rgba(255,255,255,0.5);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .windowControls {
+    display: flex;
+    gap: 4px;
+
+    button {
+      width: 22px;
+      height: 22px;
+      border: 1px solid #fff;
+      border-radius: 3px;
+      background: linear-gradient(to bottom, #ecf6fe, #bddbf7);
+      font-size: 10px;
+      color: #333;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      &:hover { background: #fdfdfd; }
+    }
+
+    .closeBtn {
+      background: linear-gradient(to bottom, #e08b80, #c73e2d);
+      color: white;
+      font-weight: bold;
+      &:hover { background: #ff5c5c; }
+    }
+  }
+}
+
+// ==========================================
+// 5. BARRA DE MENÚ
+// ==========================================
+.menuBar {
+  background: #f4f3f2;
+  border-bottom: 1px solid #dcdcdc;
+  padding: 4px 10px;
+  font-size: 11px;
+  color: #000;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap; 
+
+  span {
+    cursor: pointer;
+    &:hover { text-decoration: underline; }
+  }
+}
+
+// ==========================================
+// 6. CUERPO PRINCIPAL
+// ==========================================
+.windowBody {
+  flex: 1;
+  display: flex;
+  padding: 0; // Quitamos padding para aprovechar espacio
+  gap: 0;     // Quitamos gap para pegar sidebar y chat
+  background: linear-gradient(to bottom, #fff 0%, #dbebf9 100%);
+  overflow: hidden; 
+}
+
+// ==========================================
+
+// ==========================================
+// 7. ZONA DEL CHAT (CORREGIDA TAMAÑO E IMAGEN)
+// ==========================================
+.chatArea {
+  flex: 1;
+  background: white;
+  border-left: 1px solid #9fbed8;
+  position: relative;
+  overflow: hidden;
+
+  :global {
+    
+    // Wrapper principal
+    .n8n-chat-wrapper {
+      font-family: 'Tahoma', 'Segoe UI', sans-serif !important;
+      height: 100% !important;
+    }
+
+    // Ocultar header nativo
+    .n8n-chat-header { display: none !important; }
+
+    // Pantalla de bienvenida
+    .n8n-chat-welcome-screen-title {
+        font-size: 18px !important;
+        color: #0c2b49 !important;
+    }
+
+    // --- 1. DOMANDO EL TEXTO GIGANTE (H2) ---
+    // Aquí atacamos el problema de la captura.
+    // Forzamos a que los H1, H2, H3 se vean como texto normal en negrita.
+    .n8n-chat-message-content h1, 
+    .n8n-chat-message-content h2, 
+    .n8n-chat-message-content h3, 
+    .n8n-chat-message-content strong {
+      font-size: 14px !important; // Tamaño normal de lectura
+      font-weight: bold !important;
+      color: #0c2b49 !important; // Azul oscuro (quitamos el verde)
+      margin-top: 10px !important;
+      margin-bottom: 5px !important;
+      line-height: 1.4 !important;
+      text-transform: none !important; // Evita mayúsculas forzadas
+    }
+
+    // Texto normal
+    .n8n-chat-message-content p, 
+    .n8n-chat-message-content span,
+    .n8n-chat-message-content li {
+      font-size: 13px !important; 
+      color: #000 !important;
+      line-height: 1.4 !important;
+    }
+
+    // --- 2. IMAGEN EXACTA DE 250x250 ---
+    .n8n-chat-message-content img {
+      width: 250px !important;  // Ancho fijo
+      height: 250px !important; // Alto fijo
+      
+      // 'contain' muestra toda la foto sin recortar. 
+      // Si prefieres que llene el cuadro aunque se recorte un poco, usa 'cover'.
+      object-fit: contain !important; 
+      
+      background-color: #fff; // Fondo blanco por si la imagen es PNG transparente
+      border-radius: 8px !important;
+      display: block;
+      margin: 10px auto !important; // Centrada
+      border: 1px solid #ddd;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    }
+
+    // Ajuste para móvil: Si la pantalla es menor a 250px, que la imagen se adapte
+    @media (max-width: 400px) {
+        .n8n-chat-message-content img {
+            width: 100% !important;
+            height: auto !important;
+        }
+    }
+
+    // Listas y enlaces
+    .n8n-chat-message-content ul { padding-left: 20px !important; }
+    .n8n-chat-message-content a { color: #0066cc !important; text-decoration: underline !important; }
+  }
+}
+// ==========================================
+// 8. SIDEBAR (AVATAR)
+// ==========================================
+.sidebar {
+  width: 150px;
+  min-width: 150px; 
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  background-color: #f0faff; // Fondo azulito claro típico de sidebar MSN
+
+  .avatarFrame {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #9fbed8;
+    background: white;
+    padding: 2px;
+    margin-bottom: 10px;
+    
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .contactInfo {
+    text-align: center;
+    p { margin: 2px 0; font-size: 12px; color: #333; font-weight: bold; }
+    .statusMessage {
+      font-size: 10px;
+      color: #666;
+      font-style: italic;
+      font-weight: normal;
+    }
+  }
+}
+
+// ==========================================
+// 9. ANIMACIONES
+// ==========================================
+@keyframes popIn {
+  0% { transform: scale(0.95); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+// ==========================================
+// 10. MEDIA QUERIES (MÓVIL)
+// ==========================================
+@media (max-width: 768px) {
+  .overlay { padding: 0; background: white; }
+  .msnWindow { width: 100%; height: 100%; border-radius: 0; border: none; box-shadow: none; }
+  .sidebar { display: none; } 
+  .menuBar { display: none; } 
+  .windowBody { padding: 5px; }
+  .chatArea { border: none; }
+  
+  .titleBar {
+    padding: 0 8px;
+    .windowControls button { width: 30px; height: 30px; }
+  }
+  
+  // En móvil permitimos imágenes un poco más grandes para que se vean bien al tocar
+  .chatArea :global .n8n-chat-message-content img {
+      max-width: 150px !important; 
+  }
 }

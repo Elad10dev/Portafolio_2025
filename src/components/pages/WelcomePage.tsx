@@ -1,8 +1,9 @@
-// src/pages/WelcomePage.tsx
-// ¡Esta es tu página de inicio, usando SCSS!
-import { Button } from '../Buttons/Button';
+// src/components/pages/WelcomePage.tsx
+import { useState } from 'react'; // Importante para abrir/cerrar
 import { useNavigate } from 'react-router-dom';
-import styles from './WelcomePage.module.scss'; // 1. Importa los estilos SCSS
+import { Button } from '../Buttons/Button';
+import { ChatWidget } from '../ChatBot/ChatBot'; // Ajusta la ruta si es necesario
+import styles from './WelcomePage.module.scss'; 
 
 // Datos de ejemplo
 const portfolioData = {
@@ -12,18 +13,15 @@ const portfolioData = {
 };
 
 export function WelcomePage() {
-  const navigate = useNavigate(); // Hook para cambiar de ruta
+  const navigate = useNavigate();
+  
+  // ESTADO: Controla si la ventana de MSN está visible
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   return (
-    // 2. Usa las clases SCSS para el layout y centrado
     <div className={styles.welcomePage}>
       {/* Superposición oscura */}
       <div className={styles.overlay} />
-
-      {/* HEADER SUPERIOR DERECHO CON BOTONES CIRCULARES */}
-      <header className={styles.header}>
-        
-      </header>
 
       {/* CONTENIDO PRINCIPAL CENTRADO */}
       <div className={styles.content}>
@@ -37,7 +35,7 @@ export function WelcomePage() {
           "{portfolioData.tagline}"
         </p>
 
-        {/* Botones de acción "Bienvenido" e "Inicio de Sesión" */}
+        {/* GRUPO DE BOTONES */}
         <div className={styles.buttonGroup}>
           <Button
             onClick={() => navigate('/portfolio')}
@@ -46,16 +44,47 @@ export function WelcomePage() {
           >
             Dev Web + AWS
           </Button>
+          
           <Button
             onClick={() => navigate('/ciberseguridad')}
             variant="light"
             className={styles.button}
           >
             Ciberseguridad
-
           </Button>
+
+          {/* === NUEVO BOTÓN ESTILO MSN === */}
+          <button 
+            onClick={() => setIsChatOpen(true)}
+            className={styles.button} // Hereda estilos base si quieres, o usa solo el inline
+            style={{ 
+              background: 'linear-gradient(to bottom, #b4ddb4 5%, #83c483 100%)', // Verde MSN clásico
+              color: '#fff',
+              border: '1px solid #3e8e41',
+              borderRadius: '25px', // Redondeado igual que tus otros botones
+              padding: '10px 25px',
+              cursor: 'pointer',
+              fontWeight: 'bold',
+              display: 'flex', 
+              alignItems: 'center', 
+              gap: '8px',
+              fontSize: '1rem',
+              transition: 'transform 0.2s'
+            }}
+            onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.05)'}
+            onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+          >
+            <span>💬</span> Chatear con Eladio IA
+          </button>
         </div>
       </div>
+
+      {/* === COMPONENTE DEL CHAT (VENTANA MODAL) === */}
+      {/* Solo se renderiza cuando isChatOpen es true */}
+      <ChatWidget 
+        isOpen={isChatOpen} 
+        onClose={() => setIsChatOpen(false)} 
+      />
     </div>
   );
 }

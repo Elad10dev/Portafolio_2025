@@ -9,6 +9,7 @@ import { CiberseguridadPage } from './components/pages/CiberseguridadPage'
 // según tu imagen anterior parece ser esta ruta)
 import { ChatWidget } from './components/ChatBot/ChatBot' 
 
+
 function App() {
 
   return (
@@ -29,7 +30,9 @@ function App() {
 
       {/* 2. ZONA FIJA (Elementos globales) */}
       {/* Al ponerlo aquí, fuera de <Routes>, aparecerá en TODAS las páginas */}
-      <ChatWidget />
+      <ChatWidget isOpen={false} onClose={function (): void {
+        throw new Error('Function not implemented.')
+      } } />
       
     </>
   )
