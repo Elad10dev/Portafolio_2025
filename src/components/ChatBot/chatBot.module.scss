@@ -123,16 +123,14 @@ $window-bg: #ebf4fc;
 .windowBody {
   flex: 1;
   display: flex;
-  padding: 0; // Quitamos padding para aprovechar espacio
-  gap: 0;     // Quitamos gap para pegar sidebar y chat
+  padding: 0; 
+  gap: 0; 
   background: linear-gradient(to bottom, #fff 0%, #dbebf9 100%);
   overflow: hidden; 
 }
 
 // ==========================================
-
-// ==========================================
-// 7. ZONA DEL CHAT (CORREGIDA TAMAÑO E IMAGEN)
+// 7. ZONA DEL CHAT (CORREGIDA: TÍTULOS PEQUEÑOS)
 // ==========================================
 .chatArea {
   flex: 1;
@@ -152,26 +150,33 @@ $window-bg: #ebf4fc;
     // Ocultar header nativo
     .n8n-chat-header { display: none !important; }
 
-    // Pantalla de bienvenida
+    // --- PANTALLA DE BIENVENIDA (CORREGIDA) ---
+    // Reducido de 18px a 14px
     .n8n-chat-welcome-screen-title {
-        font-size: 18px !important;
+        font-size: 14px !important; 
+        font-weight: bold !important;
         color: #0c2b49 !important;
+        margin-bottom: 10px !important;
+    }
+    .n8n-chat-welcome-screen-subtitle {
+        font-size: 12px !important;
     }
 
-    // --- 1. DOMANDO EL TEXTO GIGANTE (H2) ---
-    // Aquí atacamos el problema de la captura.
-    // Forzamos a que los H1, H2, H3 se vean como texto normal en negrita.
+    // --- DOMANDO LOS TÍTULOS (H1, H2, H3) ---
+    // Los reducimos a 13px (igual que el texto) y solo dejamos la negrita.
+    // Esto hará que se vean compactos y limpios.
     .n8n-chat-message-content h1, 
     .n8n-chat-message-content h2, 
     .n8n-chat-message-content h3, 
     .n8n-chat-message-content strong {
-      font-size: 14px !important; // Tamaño normal de lectura
+      font-size: 13px !important; // Reducido drásticamente
       font-weight: bold !important;
-      color: #0c2b49 !important; // Azul oscuro (quitamos el verde)
-      margin-top: 10px !important;
-      margin-bottom: 5px !important;
-      line-height: 1.4 !important;
-      text-transform: none !important; // Evita mayúsculas forzadas
+      color: #0c2b49 !important; 
+      margin-top: 8px !important;
+      margin-bottom: 2px !important; // Márgenes muy pegaditos
+      line-height: 1.2 !important;
+      text-transform: none !important;
+      letter-spacing: normal !important; // Evita espaciado raro
     }
 
     // Texto normal
@@ -181,26 +186,23 @@ $window-bg: #ebf4fc;
       font-size: 13px !important; 
       color: #000 !important;
       line-height: 1.4 !important;
+      margin-bottom: 5px !important;
     }
 
-    // --- 2. IMAGEN EXACTA DE 250x250 ---
+    // --- IMÁGENES CONTROLADAS ---
     .n8n-chat-message-content img {
-      width: 250px !important;  // Ancho fijo
-      height: 250px !important; // Alto fijo
-      
-      // 'contain' muestra toda la foto sin recortar. 
-      // Si prefieres que llene el cuadro aunque se recorte un poco, usa 'cover'.
+      width: 250px !important;  
+      height: 250px !important; 
       object-fit: contain !important; 
-      
-      background-color: #fff; // Fondo blanco por si la imagen es PNG transparente
+      background-color: #fff; 
       border-radius: 8px !important;
       display: block;
-      margin: 10px auto !important; // Centrada
+      margin: 10px auto !important; 
       border: 1px solid #ddd;
       box-shadow: 0 2px 5px rgba(0,0,0,0.1);
     }
 
-    // Ajuste para móvil: Si la pantalla es menor a 250px, que la imagen se adapte
+    // Ajuste para móvil
     @media (max-width: 400px) {
         .n8n-chat-message-content img {
             width: 100% !important;
@@ -213,6 +215,7 @@ $window-bg: #ebf4fc;
     .n8n-chat-message-content a { color: #0066cc !important; text-decoration: underline !important; }
   }
 }
+
 // ==========================================
 // 8. SIDEBAR (AVATAR)
 // ==========================================
@@ -223,7 +226,7 @@ $window-bg: #ebf4fc;
   flex-direction: column;
   align-items: center;
   padding: 10px;
-  background-color: #f0faff; // Fondo azulito claro típico de sidebar MSN
+  background-color: #f0faff; 
 
   .avatarFrame {
     width: 100px;
@@ -276,7 +279,6 @@ $window-bg: #ebf4fc;
     .windowControls button { width: 30px; height: 30px; }
   }
   
-  // En móvil permitimos imágenes un poco más grandes para que se vean bien al tocar
   .chatArea :global .n8n-chat-message-content img {
       max-width: 150px !important; 
   }
