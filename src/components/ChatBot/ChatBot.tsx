@@ -6,7 +6,7 @@ import './chatBot.module.scss'; // Asegúrate de que este nombre coincida con tu
 export const ChatWidget = () => {
   useEffect(() => {
     createChat({
-      webhookUrl: 'https://eladio.app.n8n.cloud/webhook/c13ae646-74f6-4d49-a179-dd2034581e10/chat',
+      webhookUrl: 'https://n8n.posuphost.net/webhook/a4d67386-855b-4002-a603-dc1bb7a2d4db/chat',
       mode: 'window',
       showWelcomeScreen: true,
       defaultLanguage: 'en',
