@@ -6,7 +6,7 @@ import './chatBot.module.scss'; // Asegúrate de que este nombre coincida con tu
 export const ChatWidget = () => {
   useEffect(() => {
     createChat({
-      webhookUrl: 'https://n8n.posuphost.net/webhook/a4d67386-855b-4002-a603-dc1bb7a2d4db/chat',
+      webhookUrl: 'https://n8n.posuphost.net/webhook/b71753b9-8ac9-443f-b2b8-30c56e429fb7/chat',
       mode: 'window',
       showWelcomeScreen: true,
       defaultLanguage: 'en',
