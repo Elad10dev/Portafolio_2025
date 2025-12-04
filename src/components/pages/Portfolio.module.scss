@@ -1,318 +1,452 @@
-/* src/pages/PortfolioPage.module.scss */
-/* ¡Estilos FINALMENTE CORREGIDOS para Navegación Horizontal! */
+/* src/pages/Portfolio.module.scss */
 
+/* --- 1. CONFIGURACIÓN DE TEMA (IGUAL QUE WELCOME PAGE) --- */
+.portfolioPage {
+  /* Variables por defecto (Dark Mode) */
+  --bg-color: #05050a;
+  --text-main: #ffffff;
+  --text-muted: #94a3b8;
+  --primary-cyan: #00f3ff;
+  --primary-green: #0aff60;
+  --grid-line: rgba(0, 243, 255, 0.05);
+  --card-bg: rgba(10, 15, 30, 0.7);
+  --card-border: rgba(0, 243, 255, 0.2);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+  --nav-bg: rgba(5, 5, 10, 0.9);
+
+  /* Transiciones suaves para el cambio de tema */
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* Override para Modo Claro (Light Mode) */
+.lightMode {
+  --bg-color: #e0e5ec;
+  --text-main: #1a1b26;
+  --text-muted: #4b5563;
+  --primary-cyan: #007acc; /* Azul sólido */
+  --primary-green: #059669; /* Verde esmeralda */
+  --grid-line: rgba(0, 0, 0, 0.05);
+  --card-bg: rgba(255, 255, 255, 0.85);
+  --card-border: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(163, 177, 198, 0.5);
+  --nav-bg: rgba(255, 255, 255, 0.9);
+}
+
+/* Fuentes */
+$font-tech: 'Courier New', Courier, monospace;
+$font-clean: 'Inter', system-ui, -apple-system, sans-serif;
+
+/* --- 2. LAYOUT GENERAL --- */
 .portfolioPage {
   position: relative;
-  z-index: 1; 
+  min-height: 100vh;
+  width: 100%;
+  background-color: var(--bg-color);
+  color: var(--text-main);
+  font-family: $font-clean;
+  padding-bottom: 4rem;
+
+  /* Fondo Tecnológico: Grid */
+  background-image: 
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 50px 50px;
+
+  /* Vignette oscuro en bordes */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at center, transparent 0%, var(--bg-color) 120%);
+    pointer-events: none;
+    z-index: 1;
+    position: fixed; /* Para que se quede al hacer scroll */
+  }
 }
 
-/* --- NAVEGACIÓN CENTRADA (Header) --- */
-.portfolioNav {
-  position: sticky; 
+.mainContent {
+  position: relative;
+  z-index: 5; /* Encima del fondo */
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* --- 3. HEADER & NAV --- */
+.header {
+  position: sticky;
   top: 0;
-  z-index: 10;
+  z-index: 100;
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--card-border);
+  transition: background 0.5s ease;
+}
+
+.navInner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1rem 1.5rem;
   display: flex;
-  flex-direction: column; /* Apilado en móvil */
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-family: $font-tech;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-main);
+  text-decoration: none;
+  letter-spacing: -1px;
+  
+  span { color: var(--primary-cyan); }
+}
+
+.navRightSide {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navLinks {
+  display: none; /* Oculto en movil muy pequeño */
+  
+  @media (min-width: 768px) {
+    display: flex;
+    gap: 1.5rem;
+  }
+
+  a {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 600;
+    transition: color 0.3s;
+    text-transform: uppercase;
+    
+    &:hover { color: var(--primary-cyan); }
+  }
+}
+
+/* Botón Toggle Día/Noche */
+.themeToggle {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--text-main);
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 1rem 1rem; /* Más compacto arriba */
-  background: linear-gradient(to bottom, rgba(0, 0, 0, 0.95), rgba(0, 0, 0, 0.7));
-  border-bottom: 1px solid rgba(52, 211, 153, 0.3);
-  width: 100%;
-
-  @media (min-width: 768px) {
-    /* --- CAMBIO CRÍTICO: En desktop, todo en una fila horizontal --- */
-    flex-direction: row; 
-    justify-content: space-between; /* Distribuye el logo y los botones */
-    padding: 0.75rem 2rem; /* Más delgado */
-  }
-}
-
-.navLogo {
-  font-family: 'Michroma', sans-serif;
-  font-size: 1.2rem; 
-  font-weight: 700;
-  color: #a7f3d0; 
-  text-decoration: none;
-  transition: color 0.3s ease;
-  margin-bottom: 1rem; /* Espacio para móvil */
-
-  @media (min-width: 768px) {
-    font-size: 1.5rem;
-    margin-bottom: 0; /* ¡Cero margen en desktop! */
-    margin-right: 2rem; /* Espacio a la derecha de los botones */
-    flex-shrink: 0; /* No se encoge */
-  }
-}
-
-.navButtons {
-  display: flex;
-  flex-wrap: wrap; 
-  justify-content: center;
-  gap: 0.75rem; 
-  /* Aseguramos que los botones no se salgan, usando el espacio restante */
-  width: 100%;
-  
-  @media (min-width: 768px) {
-    width: auto;
-    flex-grow: 1; /* Permite que el grupo de botones ocupe el espacio */
-    justify-content: flex-end; /* Alinea los botones a la derecha si hay espacio */
-  }
-}
-
-/* Hacemos que los botones de navegación sean pequeños y limpios */
-.navButton {
-  width: auto; /* Permite que el botón sea pequeño */
-  flex-grow: 0;
-  padding: 0.5rem 1rem;
-  font-size: 0.75rem; 
-  font-family: 'Inter', sans-serif;
-  font-weight: 600;
-}
-
-/* --- SECCIONES LISTADAS (El Contenido) --- */
-.mainContent {
-  padding-top: 0; 
-}
-
-/* Estilo base para cada sección (El panel contenedor) */
-.section {
-  padding: 4rem 2rem;
-  max-width: 1100px;
-  margin: 2rem auto; /* Aseguramos espacio entre los paneles */
-  
-  /* --- ESTILO DE PANEL LISTADO --- */
-  background-color: rgba(0, 0, 0, 0.5); 
-  backdrop-filter: blur(5px);
-  border-radius: 12px;
-  border: 1px solid rgba(52, 211, 153, 0.3); 
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
-  
-  scroll-margin-top: 8rem; /* Deja espacio para la navegación pegajosa */
-
-  /* --- CAMBIO CRÍTICO: Eliminamos opacity: 0 en la base para que el contenido se vea --- */
-  /* Si necesitas animación, aplícala con un delay, no en el estado base */
-  opacity: 1; /* Hacemos el contenido visible por defecto */
-  transform: translateY(0);
-  animation: none; /* Quitamos la animación de entrada aquí para debug/estabilidad */
-  
-  animation: fadeInUp 0.8s ease-out forwards; /* Mantenemos la animación en caso de que funcione */
-}
-
-.sectionTitle {
-  font-size: 2.5rem; 
-  text-align: center;
-  margin-bottom: 3rem; 
-  text-shadow: 0 0 10px rgba(82, 211, 153, 0.7);
-}
-
-/* ... (el resto de los estilos se mantienen) ... */
-
-/* [Se mantienen los estilos restantes de AboutContent, SkillsGrid, ProjectsGrid, etc.] */
-.aboutContent {
-  display: flex;
-  flex-direction: column; 
-
-  @media (min-width: 768px) {
-    flex-direction: row; 
-    align-items: flex-start;
-    gap: 3rem;
-  }
-}
-
-.profilePic {
-  margin-bottom: 5%;
-  width: 250px;
-  height: 250px;
-  border-radius: 9999px;
-  border: 4px solid #34d399;
-  object-fit: cover;
-  box-shadow: 0 0 20px rgba(52, 211, 153, 0.5);
-  flex-shrink: 0;
-}
-
-.bioContainer {
-  flex-grow: 1;
-}
-
-.bioTitle {
-  font-size: 2rem;
-  margin-bottom: 0.5rem;
-}
-.bioSubtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.25rem;
-  color: #a0aec0;
-  margin-bottom: 1.5rem;
-}
-.bioText {
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem;
-  color: #e5e7eb;
-  line-height: 1.7;
-}
-
-.skillsGrid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.5rem;
-
-  @media (min-width: 640px) {
-    grid-template-columns: repeat(4, 1fr);
-  }
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(6, 1fr);
-  }
-}
-
-.skillCard {
-  background: rgba(31, 41, 55, 0.8);
-  padding: 1.5rem 1rem;
-  border-radius: 8px;
-  border: 1px solid rgba(52, 211, 153, 0.3);
-  text-align: center;
-  font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #e5e7eb;
   transition: all 0.3s ease;
 
   &:hover {
-    transform: translateY(-5px);
-    background: rgba(55, 65, 81, 1);
-    border-color: #34d399;
+    background: var(--primary-cyan);
+    color: #000;
+    box-shadow: 0 0 15px var(--primary-cyan);
   }
 
-  @media (min-width: 640px) {
-    font-size: 1rem;
-  }
+  svg { width: 20px; height: 20px; stroke-width: 2; }
 }
 
-.projectsGrid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 2.5rem;
+
+/* --- 4. SECCIÓN HERO (Perfil) --- */
+.heroSection {
+  margin: 4rem 0;
+  padding: 3rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 10px 40px var(--shadow-color);
+}
+
+.heroContent {
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+  gap: 3rem;
+  text-align: center;
 
   @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
+    flex-direction: row;
+    text-align: left;
+    justify-content: space-between;
   }
 }
 
-.projectCard {
-  background: rgba(31, 41, 55, 0.8);
-  border-radius: 12px;
-  border: 1px solid rgba(52, 211, 153, 0.3);
-  overflow: hidden;
+.greeting {
+  color: var(--primary-green);
+  font-family: $font-tech;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.mainTitle {
+  font-size: 2.5rem;
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 1.5rem;
+  background: linear-gradient(90deg, var(--text-main), var(--text-muted));
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  @media (min-width: 768px) { font-size: 3.5rem; }
+}
+
+.bio {
+  color: var(--text-muted);
+  line-height: 1.7;
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+  max-width: 600px;
+}
+
+.techStackBadges {
   display: flex;
-  flex-direction: column;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  @media (min-width: 768px) { justify-content: flex-start; }
+
+  span {
+    background: rgba(0, 243, 255, 0.1);
+    border: 1px solid var(--primary-cyan);
+    color: var(--primary-cyan);
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    font-family: $font-tech;
+    font-size: 0.8rem;
+    letter-spacing: 1px;
+  }
+}
+
+.heroImageContainer {
+  position: relative;
+  width: 220px;
+  height: 220px;
+
+  .heroImage {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-cyan);
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Efecto de anillo giratorio */
+  &::after {
+    content: '';
+    position: absolute;
+    top: -15px; left: -15px; right: -15px; bottom: -15px;
+    border: 2px dashed var(--primary-green);
+    border-radius: 50%;
+    animation: spin 10s linear infinite;
+    z-index: 1;
+  }
+}
+
+@keyframes spin { 100% { transform: rotate(360deg); } }
+
+
+/* --- 5. SKILLS --- */
+.skillsSection {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 5rem;
+}
+
+.skillPill {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  padding: 0.5rem 1.2rem;
+  border-radius: 50px;
+  color: var(--text-main);
+  font-weight: 500;
+  transition: all 0.3s;
+  
+  .icon { font-size: 1.2rem; color: var(--primary-cyan); display: flex;}
 
   &:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 10px 30px rgba(0, 255, 150, 0.1);
+    border-color: var(--primary-green);
+    box-shadow: 0 0 10px var(--primary-green);
+    transform: translateY(-2px);
   }
 }
 
-.projectImage {
-  width: 100%;
-  height: 200px;
-  object-fit: cover;
-  border-bottom: 1px solid rgba(52, 211, 153, 0.3);
+
+/* --- 6. PROYECTOS (LISTADO VERTICAL GRANDE) --- */
+.sectionContainer {
+  margin-bottom: 6rem;
 }
 
-.projectContent {
-  padding: 1.5rem;
+.sectionHeader {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  border-left: 5px solid var(--primary-cyan);
+  padding-left: 1.5rem;
+
+  h2 {
+    font-size: 2rem;
+    color: var(--text-main);
+    margin: 0;
+  }
+}
+
+/* El Contenedor que apila los proyectos verticalmente */
+.projectsList {
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
+  gap: 4rem; /* Espacio entre cada tarjeta de proyecto */
 }
 
-.projectTitle {
-  font-size: 1.5rem;
-  margin-bottom: 0.75rem;
+/* Tarjeta de Proyecto (Estilo Featured para todos) */
+.projectCard {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 20px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr; /* Movil: 1 columna */
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+  transition: transform 0.3s, border-color 0.3s;
+
+  &:hover {
+    border-color: var(--primary-cyan);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 40px rgba(0, 243, 255, 0.15);
+  }
+
+  @media (min-width: 900px) {
+    grid-template-columns: 1.3fr 0.7fr; /* Desktop: Imagen grande a la izq, info a la derecha */
+    height: 400px; /* Altura fija en desktop para uniformidad */
+  }
 }
 
-.projectDescription {
-  font-family: 'Inter', sans-serif;
-  font-size: 0.875rem;
-  color: #a0aec0;
-  line-height: 1.6;
-  flex-grow: 1;
-  margin-bottom: 1.5rem;
+/* Área del Carrusel */
+.cardMedia {
+  background: #000;
+  position: relative;
+  min-height: 250px;
+  border-bottom: 1px solid var(--card-border);
+
+  @media (min-width: 900px) {
+    border-bottom: none;
+    border-right: 1px solid var(--card-border);
+    height: 100%;
+  }
 }
 
-.projectLinks {
+/* Área de Información */
+.cardContent {
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
+  h3 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+    font-family: $font-tech;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+
+    span {
+      font-size: 0.75rem;
+      background: rgba(255, 255, 255, 0.05);
+      padding: 4px 8px;
+      border-radius: 4px;
+      color: var(--text-muted);
+    }
+  }
+
+  p {
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 2rem;
+    flex-grow: 1; /* Empuja los botones abajo */
+  }
+}
+
+.cardActions {
   display: flex;
   gap: 1rem;
   margin-top: auto;
 }
 
-.projectButton {
-  width: 50%;
-  padding: 0.5rem 1rem;
-  font-size: 0.875rem;
-  font-family: 'Inter', sans-serif;
-}
 
-.contactSubtitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.25rem;
-  color: #a0aec0;
-  text-align: center;
-  margin-bottom: 2.5rem;
-}
-
-.contactLinks {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  max-width: 400px;
-  margin: 0 auto;
-
-  @media (min-width: 640px) {
-    flex-direction: row;
-  }
-}
-
-.contactButton {
-  width: 100%;
-}
-
-// src/components/ImageCarousel/ImageCarousel.module.scss
-// Estilos para el Carrusel de Imágenes con Transición Suave
-
+/* --- 7. COMPONENTES EXTRA --- */
+/* Estilos para el Carrusel */
 .carouselContainer {
-    position: relative;
-    width: 100%;
-    height: 200px; /* Altura fija para el carrusel (ajustada para ProjectCard) */
-    overflow: hidden;
-    border-bottom: 1px solid rgba(52, 211, 153, 0.3); /* Borde de separación */
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
 }
 
 .image {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    
-    transition: opacity 1s ease-in-out; /* Transición suave de 1 segundo */
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Asegura que la imagen llene el espacio */
 }
 
-.active {
-    opacity: 1;
-    z-index: 1; /* Asegura que la imagen activa esté encima */
+.navBtn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: rgba(0,0,0,0.6);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.2);
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  z-index: 2;
+  transition: all 0.2s;
+  
+  &:hover { background: var(--primary-cyan); color: black; border-color: var(--primary-cyan); }
+  &.prev { left: 15px; }
+  &.next { right: 15px; }
 }
 
-.navInner {
-    // Importante para alinear horizontalmente el logo y los botones
-    display: flex; 
-    justify-content: space-between; // Mueve el logo a la izquierda y los botones a la derecha
-    align-items: center; // Centra verticalmente el logo y los botones
-    width: 90%; // O el ancho de tu contenido
-    margin: 0 auto; // Centra la barra interna
+/* Contacto */
+.contactSection {
+  text-align: center;
+  padding: 4rem 1.5rem;
+  background: linear-gradient(to top, rgba(0, 243, 255, 0.05), transparent);
+  border-top: 1px solid var(--card-border);
+  
+  h2 { font-size: 2.5rem; margin-bottom: 1rem; color: var(--text-main); }
+  p { color: var(--text-muted); margin-bottom: 2rem; }
+}
+
+.contactGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 500px;
+  margin: 0 auto;
+  
+  @media (min-width: 640px) { flex-direction: row; justify-content: center; }
 }

@@ -1,165 +1,283 @@
-/* src/pages/WelcomePage.module.scss */
-/* ¡Con el overlay más claro y el header ajustado! */
+/* WelcomePage.module.scss */
 
-/* Contenedor principal de la página */
+/* --- Configuración de Variables CSS (Theming) --- */
 .welcomePage {
-  position: relative; /* Para que el z-index funcione */
-  z-index: 1; /* Por encima del fondo */
+  --bg-color: #05050a;
+  --text-main: #ffffff;
+  --text-muted: #8b9bb4;
+  --primary-cyan: #00f3ff;
+  --primary-green: #0aff60;
+  --grid-line: rgba(0, 243, 255, 0.05);
+  --card-bg: rgba(10, 15, 30, 0.6);
+  --card-border: rgba(255, 255, 255, 0.1);
+  --shadow-color: rgba(0, 0, 0, 0.5);
+
+  /* Transiciones suaves */
+  transition: background-color 0.5s ease, color 0.5s ease;
+}
+
+/* --- Override para Modo Claro --- */
+.lightMode {
+  --bg-color: #e0e5ec;
+  --text-main: #1a1b26;
+  --text-muted: #5a6b7c;
+  --primary-cyan: #007acc;
+  --primary-green: #00a844;
+  --grid-line: rgba(0, 0, 0, 0.05);
+  --card-bg: rgba(255, 255, 255, 0.7);
+  --card-border: rgba(0, 0, 0, 0.1);
+  --shadow-color: rgba(163, 177, 198, 0.6);
+}
+
+/* Fuentes */
+$font-tech: 'Courier New', Courier, monospace;
+$font-clean: 'Inter', system-ui, -apple-system, sans-serif;
+
+/* --- Layout Principal --- */
+.welcomePage {
+  position: relative;
   display: flex;
   min-height: 100vh;
   width: 100%;
-  align-items: center; /* Centra verticalmente */
-  justify-content: center; /* Centra horizontalmente */
-  overflow: hidden;
-  padding: 1rem;
-}
-
-/* Superposición oscura para legibilidad */
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  /* --- CAMBIO AQUÍ: Overlay más claro --- */
-  /* Antes era 0.7 y 0.9, ahora es 0.5 y 0.7 */
-  background-image: linear-gradient(to bottom, rgba(10, 10, 15, 0.5), rgba(0, 0, 0, 0.7));
-  z-index: 1;
-}
-
-/* Contenedor del contenido principal (encima de la superposición) */
-.content {
-  position: relative;
-  z-index: 2;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  max-width: 900px;
-  width: 100%;
-  text-align: center;
-  padding: 1rem;
-  
-  /* Animación de entrada */
-  animation: fadeIn 1s ease-out;
-}
+  background-color: var(--bg-color);
+  overflow: hidden;
+  font-family: $font-clean;
+  color: var(--text-main);
 
-/* Estilos de texto */
-.name {
-  font-size: 2.25rem; /* 4xl */
-  font-weight: 800;
-  color: #a7f3d0; /* Verde neón */
-  line-height: 1.2;
-  margin-bottom: 0.75rem; /* 12px */
-  text-shadow: 0 0 10px rgba(82, 211, 153, 0.7);
-  animation: fadeInDown 0.8s ease-out;
+  background-image: 
+    linear-gradient(var(--grid-line) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+  background-size: 50px 50px;
 
-  /* Responsividad */
-  @media (min-width: 640px) {
-    font-size: 3.75rem; /* 6xl */
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(circle at center, transparent 0%, var(--bg-color) 90%);
+    pointer-events: none;
+    z-index: 1;
   }
 }
 
-.title {
-  font-family: 'Inter', sans-serif;
-  font-size: 1.25rem; /* xl */
-  font-weight: 300;
-  color: #e5e7eb; /* gray-200 */
-  margin-bottom: 1rem; /* 16px */
-  animation: fadeInUp 0.8s ease-out 0.2s backwards;
+/* Botón de Tema */
+.themeToggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 50;
+  background: var(--card-bg);
+  border: 1px solid var(--primary-cyan);
+  color: var(--text-main);
+  padding: 10px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 0 10px var(--grid-line);
+
+  &:hover {
+    transform: rotate(15deg) scale(1.1);
+    box-shadow: 0 0 15px var(--primary-cyan);
+  }
+
+  svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: currentColor;
+    stroke-width: 2;
+  }
+}
+
+/* Scanline */
+.scanlineOverlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  background: linear-gradient(to bottom, rgba(255,255,255,0), rgba(255,255,255,0) 50%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0.1));
+  background-size: 100% 4px;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.3;
+  display: block; 
+}
+.lightMode .scanlineOverlay {
+  opacity: 0.05;
+}
+
+/* --- Contenedor Glassmorphism --- */
+.contentCard {
+  position: relative;
+  z-index: 5;
+  background: var(--card-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--card-border);
+  padding: 3rem 2rem;
+  border-radius: 24px;
+  max-width: 900px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 20px 50px var(--shadow-color);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -1px; left: -1px; right: -1px; bottom: -1px;
+    border-radius: 24px;
+    padding: 1px;
+    background: linear-gradient(45deg, transparent 40%, var(--primary-cyan), transparent 60%);
+    
+    /* SOLUCIÓN 1: Definir la propiedad estándar 'mask' además de webkit */
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    
+    -webkit-mask-composite: xor;
+    mask-composite: exclude; /* Estándar equivalente a xor en este contexto */
+    
+    pointer-events: none;
+  }
+}
+
+/* --- Tipografía --- */
+.roleBadge {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: rgba(0, 243, 255, 0.1);
+  border: 1px solid var(--primary-cyan);
+  color: var(--primary-cyan);
+  font-family: $font-tech;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+}
+
+.name {
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -1px;
+  line-height: 1.1;
+  color: var(--text-main);
+  background: linear-gradient(90deg, var(--text-main), var(--text-muted));
   
-  @media (min-width: 640px) {
-    font-size: 1.875rem; /* 3xl */
+  /* SOLUCIÓN 2: Definir background-clip estándar */
+  background-clip: text;
+  -webkit-background-clip: text;
+  
+  -webkit-text-fill-color: transparent;
+  margin: 0;
+  position: relative;
+  transition: all 0.3s ease;
+  
+  @media (min-width: 768px) {
+    font-size: 4.5rem;
+  }
+
+  &:hover {
+    color: var(--primary-cyan);
+    -webkit-text-fill-color: initial;
+    text-shadow: 2px 2px var(--primary-green), -2px -2px var(--primary-cyan);
   }
 }
 
 .tagline {
-  font-family: 'Inter', sans-serif;
-  font-size: 1rem; /* md */
-  font-style: italic;
-  color: #34d399; /* green-400 */
-  margin-bottom: 2.5rem; /* 40px */
-  animation: fadeInUp 0.8s ease-out 0.4s backwards;
+  font-size: 1rem;
+  color: var(--text-muted);
+  max-width: 600px;
+  line-height: 1.6;
+  
+  @media (min-width: 768px) {
+    font-size: 1.1rem;
+  }
 
-  @media (min-width: 640px) {
-    font-size: 1.25rem; /* xl */
+  strong {
+    color: var(--primary-green);
+    font-weight: 600;
   }
 }
 
-/* Grupo de botones */
+/* --- Botones --- */
 .buttonGroup {
   display: flex;
-  flex-direction: column; /* Apilados en móvil */
+  flex-direction: column;
   gap: 1rem;
   width: 100%;
-  max-width: 500px;
-  animation: fadeInUp 0.8s ease-out 0.7s backwards;
+  margin-top: 2rem;
 
-  /* En pantallas más grandes, ponlos uno al lado del otro */
   @media (min-width: 640px) {
     flex-direction: row;
+    justify-content: center;
     gap: 1.5rem;
   }
 }
 
-/* Ajuste para que los botones dentro del grupo ocupen su propio espacio */
-.button {
-  width: 100%;
-  
-  @media (min-width: 640px) {
-    width: auto; /* Permite que se encojan */
-    flex-grow: 1; /* Ocupan espacio equitativo */
-  }
-}
-
-
-/* Header (botones circulares) */
-.header {
-  position: absolute;
-  /* --- CAMBIO AQUÍ: Header responsivo alejado del borde --- */
-  top: 1.5rem;   /* Un poco más de espacio arriba */
-  right: 1.5rem; /* Más espacio a la derecha para móvil */
-  z-index: 3;
-  display: flex;
-  gap: 0.5rem;
-  animation: fadeIn 1s ease-out 1s backwards;
-
-  @media (min-width: 768px) { /* md */
-    top: 2rem;   
-    right: 5rem; /* Más espacio a la derecha para desktop */
-  }
-}
-
-.iconButton {
-  width: 2.5rem;  /* Reducido para móvil */
-  height: 2.5rem; /* Reducido para móvil */
-  border-radius: 9999px; /* Círculo */
-  background-color: rgba(31, 41, 55, 0.8); /* gray-800 */
-  border: 2px solid #34d399; /* green-500 */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: #6ee7b7; /* green-300 */
+.futuristicButton {
+  position: relative;
+  padding: 1rem 2rem;
+  font-family: $font-tech;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
   transition: all 0.3s ease;
+  overflow: hidden;
+  clip-path: polygon(10px 0, 100% 0, 100% calc(100% - 10px), calc(100% - 10px) 100%, 0 100%, 0 10px);
+  min-width: 200px;
+  
+  color: var(--text-main); 
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    z-index: -2;
+    background: currentColor; 
+  }
 
   &:hover {
-    background-color: rgba(55, 65, 81, 1); /* gray-700 */
-    color: white;
-    transform: scale(1.1);
+    transform: translateY(-2px);
+    letter-spacing: 2px;
   }
+}
 
-  /* Ajuste para el SVG dentro del botón */
-  svg {
-    width: 1.25rem; /* Reducido para móvil */
-    height: 1.25rem;
+.btnWeb {
+  color: var(--bg-color);
+  border: 1px solid var(--primary-cyan);
+  box-shadow: 0 0 15px rgba(0, 243, 255, 0.1);
+
+  &::after { background: var(--primary-cyan); }
+
+  &:hover {
+    box-shadow: 0 0 30px var(--primary-cyan);
+    color: var(--primary-cyan);
+    
+    &::after { background: rgba(0, 243, 255, 0.1); }
   }
+}
 
-  @media (min-width: 768px) { /* md */
-    width: 3rem;  /* Vuelve al tamaño original */
-    height: 3rem;
-    svg {
-      width: 1.5rem;
-      height: 1.5rem;
-    }
+.btnSec {
+  color: var(--bg-color);
+  border: 1px solid var(--primary-green);
+  box-shadow: 0 0 15px rgba(10, 255, 96, 0.1);
+
+  &::after { background: var(--primary-green); }
+
+  &:hover {
+    box-shadow: 0 0 30px var(--primary-green);
+    color: var(--primary-green);
+    
+    &::after { background: rgba(10, 255, 96, 0.1); }
   }
 }
