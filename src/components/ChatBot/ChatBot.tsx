@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import { createChat } from '@n8n/chat';
 import '@n8n/chat/dist/style.css'; 
-import './chatBot.module.scss'; // Asegúrate de que este nombre coincida con tu archivo
+import './chatBot.module.scss'; 
 
 export const ChatWidget = () => {
   useEffect(() => {
@@ -11,23 +11,22 @@ export const ChatWidget = () => {
       showWelcomeScreen: true,
       defaultLanguage: 'en',
       
+      // --- IDENTIDAD NEXUS ---
       initialMessages: [
-        '👋 ¡Hola! Soy Eladio IA.',
-        '¿Buscas Desarrollo de Software, Webs o Automatización?',
-        'Cuéntame tu proyecto y te ayudo al instante. 🐍'
+        '🟢 System Online. Soy Nexus.',
+        'Asistente virtual de Eladio. ¿Eres Recruiter, Cliente o Colega?',
+        'Dime qué necesitas y conectaré los puntos. 🚀'
       ],
       i18n: {
         en: {
-          title: 'Eladio IA 🐍',
-          subtitle: 'Consultoría & Sistemas',
-          footer: 'Potenciado por Eladio Tech',
-          getStarted: 'Comenzar Chat',
-          inputPlaceholder: 'Escribe tu consulta aquí...',
-          closeButtonTooltip: 'Cerrar asistente',
+          title: 'Nexus AI ⚡',
+          subtitle: 'Enlace Técnico & Consultas',
+          footer: 'Secure Connection • Eladio.Dev',
+          getStarted: 'Iniciar Sesión',
+          inputPlaceholder: 'Escribe tu comando o consulta...',
+          closeButtonTooltip: 'Minimizar Terminal',
         },
       },
-      // Eliminamos el bloque 'style' para corregir el error de TypeScript.
-      // El archivo SCSS se encargará de todo el diseño.
     });
   }, []);
 
